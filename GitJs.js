@@ -10,7 +10,7 @@ function GitJs(config) {
         apiSuccessHandler: function () {}
     },
     init = function () {
-        switch(this.config.mode) {
+        switch (this.config.mode) {
             case 'read':
                 break;
             case 'write':
@@ -19,16 +19,18 @@ function GitJs(config) {
                 throw this.config.mode + " is not a valid 'mode' value. Accepted values are 'read' and 'write'.";
         }
     };
-    $.extend(config, defaults);
-    this.config = config;
-    if(this.config.inheriting == false) {
+
+    this.config = $.extend(config, defaults);
+    if (this.config.inheriting === false) {
         init();
     }
 }
 
 GitJs.prototype.getCommandMethod = function (httpVerb) {
+    'use strict';
     var method = $.get;
-    switch(httpVerb) {
+
+    switch (httpVerb) {
         case 'GET':
             method = $.get;
             break;
@@ -37,13 +39,13 @@ GitJs.prototype.getCommandMethod = function (httpVerb) {
             break;
     }
     return method;
-}
+};
 
 GitJs.prototype.callApi = function (apiCommand, data, httpVerb) {
     'use strict';
 
     var commandMethod = this.getCommandMethod(httpVerb || 'GET'),
-        me = this;
+    me = this;
 
     if (apiCommand[0] !== '/') {
         apiCommand = '/' + apiCommand;
@@ -59,12 +61,14 @@ GitJs.prototype.callApi = function (apiCommand, data, httpVerb) {
 };
 
 GitJs.prototype.authenticateUser = function (accessToken) {
+    'use strict';
+
     accessToken = accessToken || this.config.accessToken;
     this.config.accessToken = accessToken;
     this.callApi('/', {
         access_token: this.accessToken
     });
-}
+};
 
 GitJs.prototype.getGistComments = function (gistId, commentId, callback) {
     'use strict';
@@ -78,9 +82,11 @@ GitJs.prototype.getGistComments = function (gistId, commentId, callback) {
     this.callApi(apiCommand).send(callback);
 };
 
-GitJs.prototype.getReposByUser = function(username, type, callback) {
+GitJs.prototype.getReposByUser = function (username, type, callback) {
+    'use strict';
+
     var apiCommand = '';
-    if(username !== undefined) {
+    if (username !== undefined) {
         apiCommand = '/users/' + username + '/repos';
     } else {
         apiCommand = '/users/repos';
@@ -88,10 +94,12 @@ GitJs.prototype.getReposByUser = function(username, type, callback) {
     this.callApi(apiCommand, {
         type: type || 'all'
     }).send(callback);
-}
+};
 
-GitJs.prototype.getReposByOrg = function(organization, type, callback) {
+GitJs.prototype.getReposByOrg = function (organization, type, callback) {
+    'use strict';
+
     this.callApi('/orgs/' + organization + '/respos', {
         type: type || 'all'
     }).send(callback);
-}
+};
