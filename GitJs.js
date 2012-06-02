@@ -100,7 +100,7 @@ GitJs.prototype.getReposByUser = function (username, type, callback) {
 GitJs.prototype.getReposByOrg = function (organization, type, callback) {
     'use strict';
 
-    this.callApi('/orgs/' + organization + '/respos', {
+    this.callApi('/orgs/' + organization + '/repos', {
         type: type || 'all'
     }).send(callback);
 };
