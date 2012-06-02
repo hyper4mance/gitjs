@@ -8,22 +8,13 @@ function GitJs(config) {
         mode: 'read',
         apiErrorHandler: function () {},
         apiSuccessHandler: function () {}
-    },
-    me = this,
-    init = function () {
-        switch (me.config.mode) {
-            case 'read':
-                break;
-            case 'write':
-                break;
-            default:
-                throw this.config.mode + " is not a valid 'mode' value. Accepted values are 'read' and 'write'.";
-        }
     };
 
     this.config = $.extend(config, defaults);
     if (this.config.inheriting === false) {
-        init();
+        if (this.config.mode === 'write') {
+            this.authenticateUser(this.config.accessToken);
+        }
     }
 }
 
