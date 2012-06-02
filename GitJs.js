@@ -1,3 +1,5 @@
+/*jslint browser: true, windows: true, safe: false, white: true */
+/*global $:true */
 function GitJs(config) {
     'use strict';
     var defaults = {
