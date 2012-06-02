@@ -78,7 +78,7 @@ GitJs.prototype.getGistComments = function (gistId, commentId, callback) {
     this.callApi(apiCommand).send(callback);
 };
 
-GitJs.prototype.getUserRepos = function(username, type, callback) {
+GitJs.prototype.getReposByUser = function(username, type, callback) {
     var apiCommand = '';
     if(username !== undefined) {
         apiCommand = '/users/' + username + '/repos';
