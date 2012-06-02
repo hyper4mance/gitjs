@@ -9,8 +9,9 @@ function GitJs(config) {
         apiErrorHandler: function () {},
         apiSuccessHandler: function () {}
     },
+    me = this,
     init = function () {
-        switch (this.config.mode) {
+        switch (me.config.mode) {
             case 'read':
                 break;
             case 'write':
