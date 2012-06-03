@@ -60,7 +60,7 @@ GitJs.prototype.authenticateUser = function (callback) {
 
     this.callApi('/', {
         access_token: this.config.accessToken
-    });
+    }).send(callback);
 };
 
 GitJs.prototype.getGistComments = function (gistId, commentId, callback) {
