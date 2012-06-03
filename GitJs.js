@@ -55,13 +55,11 @@ GitJs.prototype.callApi = function (apiCommand, data, httpVerb) {
     };
 };
 
-GitJs.prototype.authenticateUser = function (accessToken) {
+GitJs.prototype.authenticateUser = function (callback) {
     'use strict';
 
-    accessToken = accessToken || this.config.accessToken;
-    this.config.accessToken = accessToken;
     this.callApi('/', {
-        access_token: this.accessToken
+        access_token: this.config.accessToken
     });
 };
 
