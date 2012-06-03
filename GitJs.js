@@ -1,5 +1,6 @@
 /*jslint browser: true, windows: true, safe: false, white: true */
 /*global $:true */
+
 function GitJs(config) {
     'use strict';
     var defaults = {
@@ -83,7 +84,7 @@ GitJs.prototype.getReposByUser = function (username, type, callback) {
     if (username !== undefined) {
         apiCommand = '/users/' + username + '/repos';
     } else {
-        apiCommand = '/users/repos';
+        apiCommand = '/user/repos';
     }
     this.callApi(apiCommand, {
         type: type || 'all'
