@@ -36,7 +36,7 @@ GitJs.prototype.getCommandMethod = function (httpVerb) {
     return method;
 };
 
-GitJs.prototype.callApi = function (apiCommand, data, httpVerb) {
+GitJs.prototype.callApi = function (apiCommand, data, httpVerb, dataType) {
     'use strict';
 
     var commandMethod = this.getCommandMethod(httpVerb || 'GET'),
@@ -50,7 +50,7 @@ GitJs.prototype.callApi = function (apiCommand, data, httpVerb) {
         url: 'https://api.github.com' + apiCommand,
         data: data || {},
         send: function (callback) {
-            commandMethod.call(me, this.url, this.data, callback, 'json');
+            commandMethod.call(me, this.url, this.data, callback, dataType || 'jsonp');
         }
     };
 };
