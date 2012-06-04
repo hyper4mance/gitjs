@@ -40,7 +40,7 @@ GitJs.prototype.callApi = function (apiCommand, data, httpVerb, dataType) {
     'use strict';
 
     var commandMethod = this.getCommandMethod(httpVerb || 'GET'),
-    me = this;
+        me = this;
 
     if (apiCommand[0] !== '/') {
         apiCommand = '/' + apiCommand;
@@ -58,7 +58,7 @@ GitJs.prototype.callApi = function (apiCommand, data, httpVerb, dataType) {
 GitJs.prototype.authenticateUser = function (callback) {
     'use strict';
 
-    this.callApi('/', {
+    this.callApi('/user', {
         access_token: this.config.accessToken
     }).send(callback);
 };
