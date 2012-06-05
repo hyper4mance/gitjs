@@ -1,8 +1,8 @@
 /*jslint browser: true, windows: true, safe: false, white: true */
 /*global $:true */
 
+'use strict';
 function GitJs(config) {
-    'use strict';
     var defaults = {
         inheriting: false,
         clientId: undefined,
@@ -22,7 +22,6 @@ function GitJs(config) {
 }
 
 GitJs.prototype.getCommandMethod = function (httpVerb) {
-    'use strict';
     var method = $.get;
 
     switch (httpVerb) {
@@ -37,8 +36,6 @@ GitJs.prototype.getCommandMethod = function (httpVerb) {
 };
 
 GitJs.prototype.callApi = function (apiCommand, data, httpVerb, dataType) {
-    'use strict';
-
     var commandMethod = this.getCommandMethod(httpVerb || 'GET'),
         me = this;
 
@@ -56,16 +53,12 @@ GitJs.prototype.callApi = function (apiCommand, data, httpVerb, dataType) {
 };
 
 GitJs.prototype.authenticateUser = function (callback) {
-    'use strict';
-
     this.callApi('/user', {
         access_token: this.config.accessToken
     }).send(callback);
 };
 
 GitJs.prototype.getGistComments = function (gistId, commentId, callback) {
-    'use strict';
-
     var apiCommand = '';
     if (commentId === undefined || isNaN(commentId) === true) {
         apiCommand = '/gists/' + gistId + '/comments';
@@ -76,8 +69,6 @@ GitJs.prototype.getGistComments = function (gistId, commentId, callback) {
 };
 
 GitJs.prototype.getReposByUser = function (username, type, callback) {
-    'use strict';
-
     var apiCommand = '';
     if (username !== undefined) {
         apiCommand = '/users/' + username + '/repos';
@@ -90,8 +81,6 @@ GitJs.prototype.getReposByUser = function (username, type, callback) {
 };
 
 GitJs.prototype.getReposByOrg = function (organization, type, callback) {
-    'use strict';
-
     this.callApi('/orgs/' + organization + '/repos', {
         type: type || 'all'
     }).send(callback);
