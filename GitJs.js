@@ -58,7 +58,7 @@ GitJs.prototype.authenticateUser = function (callback) {
     }).send(callback);
 };
 
-GitJs.prototype.getGistComments = function (gistId, commentId, callback) {
+GitJs.prototype.getGistComments = function (callback, gistId, commentId) {
     var apiCommand = '';
     if (commentId === undefined || isNaN(commentId) === true) {
         apiCommand = '/gists/' + gistId + '/comments';
@@ -68,7 +68,7 @@ GitJs.prototype.getGistComments = function (gistId, commentId, callback) {
     this.callApi(apiCommand).send(callback);
 };
 
-GitJs.prototype.getReposByUser = function (username, type, callback) {
+GitJs.prototype.getReposByUser = function (callback, username, type) {
     var apiCommand = '';
     if (username !== undefined) {
         apiCommand = '/users/' + username + '/repos';
@@ -80,7 +80,7 @@ GitJs.prototype.getReposByUser = function (username, type, callback) {
     }).send(callback);
 };
 
-GitJs.prototype.getReposByOrg = function (organization, type, callback) {
+GitJs.prototype.getReposByOrg = function (callback, organization, type) {
     this.callApi('/orgs/' + organization + '/repos', {
         type: type || 'all'
     }).send(callback);
