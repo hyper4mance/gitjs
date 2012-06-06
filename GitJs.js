@@ -90,7 +90,7 @@ GitJs.prototype.getGistComments = function (callback, gistId, commentId) {
     this.callApi(apiCommand).send(callback);
 };
 
-GitJs.prototype.getReposByUser = function (callback, username, type) {
+GitJs.prototype.getReposByUser = function (callback, username, type, sort, direction) {
     var apiCommand = '';
     if (username !== undefined) {
         apiCommand = '/users/' + username + '/repos';
@@ -98,12 +98,16 @@ GitJs.prototype.getReposByUser = function (callback, username, type) {
         apiCommand = '/user/repos';
     }
     this.callApi(apiCommand, {
-        type: type || 'all'
+        type: type || undefined,
+        sort: sort || undefined,
+        direction: direction || undefined
     }).send(callback);
 };
 
-GitJs.prototype.getReposByOrg = function (callback, organization, type) {
+GitJs.prototype.getReposByOrg = function (callback, organization, type, sort, direction) {
     this.callApi('/orgs/' + organization + '/repos', {
-        type: type || 'all'
+        type: type || undefined,
+        sort: sort || undefined,
+        direction: direction || undefined
     }).send(callback);
 };
