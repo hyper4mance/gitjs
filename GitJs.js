@@ -30,9 +30,7 @@ function GitJs(config) {
         clientId: undefined,
         accessToken: undefined,
         baseUrl: 'https://api.github.com',
-        mode: 'read',
-        apiErrorHandler: function () {},
-        apiSuccessHandler: function () {}
+        mode: 'read'
     };
 
     this.config = $.extend(config, defaults);
