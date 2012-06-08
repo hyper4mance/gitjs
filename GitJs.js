@@ -24,6 +24,12 @@
 /*global $:true */
 
 'use strict';
+
+/**
+ * Creates a new GitJs object.
+ * @constructor
+ * @param {object} param - configuration object. See defaults variable for a list of possible properties.
+ */
 function GitJs(config) {
     var defaults = {
         inheriting: false,
