@@ -28,7 +28,7 @@
 /**
  * Creates a new GitJs object.
  * @constructor
- * @param {object} param - configuration object. See defaults variable for a list of possible properties.
+ * @param {object} config - configuration object. See defaults variable for a list of possible properties.
  */
 function GitJs(config) {
     var defaults = {
@@ -47,6 +47,12 @@ function GitJs(config) {
     }
 }
 
+/**
+ * Gets the jQuery method that GitJs#callApi is going to use to send the ajax request
+ *
+ * @param {string} httpVerb The HTTP verb that the request will use,
+ * @return string
+ */
 GitJs.prototype.getCommandMethod = function (httpVerb) {
     var method = $.get;
 
@@ -61,6 +67,15 @@ GitJs.prototype.getCommandMethod = function (httpVerb) {
     return method;
 };
 
+/**
+ * Generates a request to be sent to the Github API
+ * 
+ * @param {string} apiCommand The Github API command (e.g., '/user') can start with a '/' but doesn't have to.
+ * @param {object} data An object literal to send along with the API request. Properties of the object literal correspond to the parameters of the API command.
+ * Defaults to an empty object-literal
+ * @param {string} httpVerb The HTTP verb used to send the request. Defaults to 'GET'
+ * @param {string} dataType The data type that the Github API will send its response in. Defaults to 'jsonp'
+ */
 GitJs.prototype.callApi = function (apiCommand, data, httpVerb, dataType) {
     var commandMethod = this.getCommandMethod(httpVerb || 'GET'),
         me = this;
