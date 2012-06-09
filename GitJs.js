@@ -78,7 +78,7 @@ GitJs.prototype.getCommandMethod = function (httpVerb) {
  */
 GitJs.prototype.callApi = function (apiCommand, data, httpVerb, dataType) {
     var commandMethod = this.getCommandMethod(httpVerb || 'GET'),
-        me = this;
+    me = this;
 
     if (apiCommand[0] !== '/') {
         apiCommand = '/' + apiCommand;
@@ -129,7 +129,7 @@ GitJs.prototype.getGistComments = function (callback, gistId, commentId) {
  * @param {string=} username If not specified, repo date for the currently logged in user is returned.
  * @param {string=} type The type of data about a repo to return (e.g., 'public'). See API documention for a list of possible values.
  * @param {string=} sort What field to sort the data by.
- * @param {string=}  direction What direction to sort the data by (ascending or descending).
+ * @param {string=} direction What direction to sort the data by (ascending or descending).
  */
 GitJs.prototype.getReposByUser = function (callback, username, type, sort, direction) {
     var apiCommand = '';
@@ -152,7 +152,7 @@ GitJs.prototype.getReposByUser = function (callback, username, type, sort, direc
  * @param {string} organization
  * @param {string=} type The type of data about a repo to return (e.g., 'public'). See API documention for a list of possible values.
  * @param {string=} sort What field to sort the data by.
- * @param {string=}  direction What direction to sort the data by (ascending or descending).
+ * @param {string=} direction What direction to sort the data by (ascending or descending).
  */
 GitJs.prototype.getReposByOrg = function (callback, organization, type, sort, direction) {
     this.callApi('/orgs/' + organization + '/repos', {
@@ -160,4 +160,27 @@ GitJs.prototype.getReposByOrg = function (callback, organization, type, sort, di
         sort: sort || undefined,
         direction: direction || undefined
     }).send(callback);
+};
+
+/**
+ * Gets a list of issues associated with the currently logged in user
+ *
+ * @param {function(data, textStatus, jqXhr)} callback
+ * @param {string=} filter What kinds of issues to show (e.g., 'created' only shows issues created by you).
+ * @param {string=} state What state the issues should be in (e.g., 'open').
+ * @param {string=} labels String list of comma separated label names (e.g., bug, ui, @high).
+ * @param {string=} sort What field to sort the data by.
+ * @param {string=} direction What direction to sort the data by (ascending or descending).
+ * @param {string=} since Only show issues since... (timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ).
+ *
+ */
+GitJs.prototype.getIssuesByUser = function(callback, filter, state, labels, sort, direction, since) {
+    this.callApi('/issues?access_token='+ this.config.accessToken, {
+        filter: filter || undefined,
+        state: state || undefined,
+        labels: labels || undefined,
+        sort: sort || undefined,
+        direction: direction || undefined,
+        since: since || undefined
+    }, 'GET').send(callback);
 };
