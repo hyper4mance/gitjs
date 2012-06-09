@@ -69,7 +69,7 @@ GitJs.prototype.getCommandMethod = function (httpVerb) {
 
 /**
  * Generates a request to be sent to the Github API
- * 
+ *
  * @param {string} apiCommand The Github API command (e.g., '/user') can start with a '/' but doesn't have to.
  * @param {object} data An object literal to send along with the API request. Properties of the object literal correspond to the parameters of the API command.
  * Defaults to an empty object-literal
@@ -93,6 +93,10 @@ GitJs.prototype.callApi = function (apiCommand, data, httpVerb, dataType) {
     };
 };
 
+/**
+ * Authenticates a user with the Github API using an access token
+ * @param {function} callback
+ */
 GitJs.prototype.authenticateUser = function (callback) {
     this.callApi('/user', {
         access_token: this.config.accessToken
