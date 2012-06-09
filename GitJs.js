@@ -127,9 +127,9 @@ GitJs.prototype.getGistComments = function (callback, gistId, commentId) {
  *
  * @param {function(data, textStatus, jqXhr)} callback
  * @param {string=} username If not specified, repo date for the currently logged in user is returned.
- * @param {string='all'} type The type of data about a repo to return (e.g., 'public'). See API documention for a list of possible values.
- * @param {string='created'} sort What field to sort the data by.
- * @param {string='asc'}  direction What direction to sort the data by (ascending or descending).
+ * @param {string=} type The type of data about a repo to return (e.g., 'public'). See API documention for a list of possible values.
+ * @param {string=} sort What field to sort the data by.
+ * @param {string=}  direction What direction to sort the data by (ascending or descending).
  */
 GitJs.prototype.getReposByUser = function (callback, username, type, sort, direction) {
     var apiCommand = '';
@@ -147,12 +147,12 @@ GitJs.prototype.getReposByUser = function (callback, username, type, sort, direc
 
 /**
  * Gets information about respos belonging to a particular organization.
- * 
+ *
  * @param {function(data, textStatus, jqXhr)} callback
  * @param {string} organization
- * @param {string='all'} type The type of data about a repo to return (e.g., 'public'). See API documention for a list of possible values.
- * @param {string='created'} sort What field to sort the data by.
- * @param {string='asc'}  direction What direction to sort the data by (ascending or descending).
+ * @param {string=} type The type of data about a repo to return (e.g., 'public'). See API documention for a list of possible values.
+ * @param {string=} sort What field to sort the data by.
+ * @param {string=}  direction What direction to sort the data by (ascending or descending).
  */
 GitJs.prototype.getReposByOrg = function (callback, organization, type, sort, direction) {
     this.callApi('/orgs/' + organization + '/repos', {
