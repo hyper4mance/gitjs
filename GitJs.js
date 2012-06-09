@@ -96,7 +96,7 @@ GitJs.prototype.callApi = function (apiCommand, data, httpVerb, dataType) {
 /**
  * Authenticates a user with the Github API using an access token
  *
- * @param {function} callback
+ * @param {function=} callback
  */
 GitJs.prototype.authenticateUser = function (callback) {
     this.callApi('/user', {
