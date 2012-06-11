@@ -40,7 +40,7 @@ function GitJs(config) {
         mode: 'read'
     };
 
-    this.config = $.extend(config, defaults);
+    this.config = $.extend(defaults, config);
     if (this.config.inheriting === false) {
         if (this.config.mode === 'write') {
             this.authenticateUser(this.config.accessToken);
