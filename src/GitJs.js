@@ -184,3 +184,16 @@ GitJs.prototype.getIssuesByUser = function(callback, filter, state, labels, sort
         since: since || undefined
     }, 'GET').send(callback);
 };
+
+GitJs.prototype.generateAuthorizationLink = function(clientId, scope, redirectUri) {
+    var urlParams = [
+        'client_id=' + clientId
+    ];
+    if(scope !== undefined) {
+       urlParams.push('scope=' + scope);
+    }
+    if(redirectUri !== undefined) {
+        urlParams.push('redirect_uri=' + redirectUri);
+    }
+    return 'https://github.com/login/oauth/authorize?' + urlParams.join('&');
+};
