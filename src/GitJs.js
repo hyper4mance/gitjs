@@ -214,3 +214,16 @@ GitJs.prototype.getGistComments = function(callback, gistId, commentId) {
     }
     this.callApi(apiCommand).send(callback);
 }
+
+/**
+* Creates a comment on a gist.
+*
+* @param {function(data, textStatus, jqXhr)} callback
+* @param {integer} gistId The Id of the gist that the comment should belong to.
+* @param {string} comment
+*/
+GitJs.prototype.createGistComment = function(callback, gistId, comment) {
+    this.callApi('/gists' + gistId + '/comments', {
+        body: comment
+    }).send(callback);
+}
