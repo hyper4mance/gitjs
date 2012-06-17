@@ -181,6 +181,8 @@ GitJs.prototype.getIssuesByUser = function(callback, filter, state, labels, sort
 };
 
 /**
+* Generates a link that, when clicked on, will prompt the user to grant the application access to their Github account.
+*
 * @param {string} clientId The client ID of the application being authorized.
 * @param {scope=} string A CSV string representing what scope the application will request.
 * @param {redirectUri} The URI the browser should be redirected to once the app is authorized.
@@ -190,10 +192,25 @@ GitJs.prototype.generateAuthorizationLink = function(clientId, scope, redirectUr
         'client_id=' + clientId
     ];
     if(scope !== undefined) {
-       urlParams.push('scope=' + scope);
+        urlParams.push('scope=' + scope);
     }
     if(redirectUri !== undefined) {
         urlParams.push('redirect_uri=' + redirectUri);
     }
     return 'https://github.com/login/oauth/authorize?' + urlParams.join('&');
 };
+
+/**
+* Gets information about comments on a gist.
+*
+* @param {function(data, textStatus, jqXhr)} callback
+* @param {integer=} gistId The Id of the gist that the comments belong to.
+* @param {integer=} commentId The Id of an individual comment to be retrieved. If absent, all gist comments are returned. 
+*/
+GitJs.prototype.getGistComments = function(callback, gistId, commentId) {
+    var apiCommand = '/gists/:gist_id/comments';
+    if(commentId !== undefined) {
+        apiCommand = '/gists/comments/' + commentId;
+    }
+    this.callApi(apiCommand).send(callback);
+}
