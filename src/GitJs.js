@@ -67,7 +67,7 @@ GitJs.prototype.getCommandMethod = function (httpVerb) {
  * Generates a request to be sent to the Github API.
  *
  * @param {string} apiCommand The Github API command (e.g., '/user') can start with a '/' but doesn't have to.
- * @param {object={}} data An object literal to send along with the API request. Properties of the object literal correspond to the parameters of the API command.
+ * @param {object={}} data An object literal of command parameters to send along with the API request.
  * @param {string=GET} httpVerb The HTTP verb used to send the request. Defaults to 'GET'.
  * @param {string=jsonP} dataType The data type that the Github API will send its response in. Defaults to 'jsonp'
  */
