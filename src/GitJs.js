@@ -44,7 +44,7 @@ function GitJs(config) {
 }
 
 /**
- * Gets the jQuery method that GitJs#callApi is going to use to send the ajax request.
+ * Gets the jQuery method that GitJs#generateApiRequest is going to use to send the ajax request.
  *
  * @param {string} httpVerb The HTTP verb that the request will use,
  * @return string
@@ -71,7 +71,7 @@ GitJs.prototype.getCommandMethod = function (httpVerb) {
  * @param {string=GET} httpVerb The HTTP verb used to send the request. Defaults to 'GET'.
  * @param {string=jsonP} dataType The data type that the Github API will send its response in. Defaults to 'jsonp'
  */
-GitJs.prototype.callApi = function (apiCommand, data, httpVerb, dataType) {
+GitJs.prototype.generateApiRequest = function (apiCommand, data, httpVerb, dataType) {
     var commandMethod = this.getCommandMethod(httpVerb || 'GET'),
     me = this;
 
@@ -94,7 +94,7 @@ GitJs.prototype.callApi = function (apiCommand, data, httpVerb, dataType) {
  * @param {function(data, textStatus, jqXhr)=} callback
  */
 GitJs.prototype.authenticateUser = function (callback) {
-    this.callApi('/user', {
+    this.generateApiRequest('/user', {
         access_token: this.config.accessToken
     }).send(callback);
 };
@@ -114,7 +114,7 @@ GitJs.prototype.getGistComments = function (callback, gistId, commentId) {
     } else {
         apiCommand = '/gits/comments/' + commentId;
     }
-    this.callApi(apiCommand).send(callback);
+    this.generateApiRequest(apiCommand).send(callback);
 };
 
 /**
@@ -133,7 +133,7 @@ GitJs.prototype.getReposByUser = function (callback, username, type, sort, direc
     } else {
         apiCommand = '/user/repos';
     }
-    this.callApi(apiCommand, {
+    this.generateApiRequest(apiCommand, {
         type: type || undefined,
         sort: sort || undefined,
         direction: direction || undefined
@@ -150,7 +150,7 @@ GitJs.prototype.getReposByUser = function (callback, username, type, sort, direc
  * @param {string=} direction What direction to sort the data by (ascending or descending).
  */
 GitJs.prototype.getReposByOrg = function (callback, organization, type, sort, direction) {
-    this.callApi('/orgs/' + organization + '/repos', {
+    this.generateApiRequest('/orgs/' + organization + '/repos', {
         type: type || undefined,
         sort: sort || undefined,
         direction: direction || undefined
@@ -170,7 +170,7 @@ GitJs.prototype.getReposByOrg = function (callback, organization, type, sort, di
  *
  */
 GitJs.prototype.getIssuesByUser = function(callback, filter, state, labels, sort, direction, since) {
-    this.callApi('/issues?access_token='+ this.config.accessToken, {
+    this.generateApiRequest('/issues?access_token='+ this.config.accessToken, {
         filter: filter || undefined,
         state: state || undefined,
         labels: labels || undefined,
@@ -212,7 +212,7 @@ GitJs.prototype.getGistComments = function(callback, gistId, commentId) {
     if(commentId !== undefined) {
         apiCommand = '/gists/comments/' + commentId;
     }
-    this.callApi(apiCommand).send(callback);
+    this.generateApiRequest(apiCommand).send(callback);
 }
 
 /**
@@ -223,7 +223,7 @@ GitJs.prototype.getGistComments = function(callback, gistId, commentId) {
 * @param {string} comment
 */
 GitJs.prototype.createGistComment = function(callback, gistId, comment) {
-    this.callApi('/gists' + gistId + '/comments', {
+    this.generateApiRequest('/gists' + gistId + '/comments', {
         body: comment
     }).send(callback);
 }
