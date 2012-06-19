@@ -180,6 +180,10 @@ GitJs.prototype.getIssuesByUser = function(callback, filter, state, labels, sort
     }, 'GET').send(callback);
 };
 
+GitJs.prototype.getIssue(callback, user, repo, issueNumber) {
+    this.generateApiRequest('/repos/' + user + '/' + repo + '/issues/' + issueNumber).send(callback);
+}
+
 /**
 * Generates a link that, when clicked on, will prompt the user to grant the application access to their Github account.
 *
