@@ -1,9 +1,9 @@
 /*newcap: true*/
-/*globals TestCase, GitJs, assertFunction, assertException, assertNoException, assertEquals, assert, assertNull, assertSame, assertFalse, assertTrue*/
+/*globals TestCase, GitJs, assertFunction, commandMethod, assertException, assertNoException, assertEquals, assert, assertNull, assertSame, assertFalse, assertTrue*/
 
 'use strict';
 
-TestCase("callApiTest", {
+TestCase("generateApiRequestTest", {
     setUp: function () {
         this.gitjs = new GitJs();
     },
@@ -11,16 +11,13 @@ TestCase("callApiTest", {
         delete this.gitJs;
     },
 
-    "test callApi with minimal options": function () {
+    "test generateApiRequest with minimal options": function () {
         var apiCommand = '/user/opnsrce/repos',
-            expectedResult = {
-                data: undefined,
-                url: 'https://api.github.com' + apiCommand,
-                send: function (callback) {
-                    commandMethod.call(me, this.url, this.data, callback, dataType || 'jsonp');
-                }                
-            };
-        this.assertEquals(this.gitjs.generateApiRequest(apiCommand), expectedResult);
+            apiRequest = this.generateApiRequest(apiCommand);
             
-    },
+        this.assertTypeOf('function' , this.gitjs.generateApiRequest);
+        this.assertUndefined(apiRequest.data);
+        this.assertEquals('https://api.github.com' + apiCommand, apiRequest.url);
+        this.assertTypeOf('function', apiRequest.send);
+    }
 });
