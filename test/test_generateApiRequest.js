@@ -3,7 +3,7 @@
 
 'use strict';
 
-TestCase("generateAuthorizationLinksTest", {
+TestCase("callApiTest", {
     setUp: function () {
         this.gitjs = new GitJs();
     },
@@ -11,12 +11,16 @@ TestCase("generateAuthorizationLinksTest", {
         delete this.gitJs;
     },
 
-    "test generateAuthorizationLink method with minimal options": function () {
-        var expectedResult = 'https://github.com/login/oauth/authorize?client_id=123';
-        assertEquals(this.gitjs.generateAuthorizationLink('123'), expectedResult);
+    "test callApi with minimal options": function () {
+        var apiCommand = '/user/opnsrce/repos',
+            expectedResult = {
+                data: undefined,
+                url: 'https://api.github.com' + apiCommand,
+                send: function (callback) {
+                    commandMethod.call(me, this.url, this.data, callback, dataType || 'jsonp');
+                }                
+            };
+        this.assertEquals(this.gitjs.generateApiRequest(apiCommand), expectedResult);
+            
     },
-    "test generateAuthorizationLink method with all options": function () {
-        var expectedResult = 'https://github.com/login/oauth/authorize?client_id=123&scope=public&redirect_uri=http://www.cnn.com';
-        assertEquals(this.gitjs.generateAuthorizationLink('123', 'public', 'http://www.cnn.com'), expectedResult);
-    }
 });
