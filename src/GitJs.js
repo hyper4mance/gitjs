@@ -72,9 +72,14 @@ GitJs.prototype.getCommandMethod = function (httpVerb) {
  * @param {string=jsonP} dataType The data type that the Github API will send its response in. Defaults to 'jsonp'
  */
 GitJs.prototype.generateApiRequest = function (apiCommand, data, httpVerb, dataType) {
-    var commandMethod = this.getCommandMethod(httpVerb || 'GET'),
+    
+    var commandMethod,
     me = this;
-
+    
+    httpVerb = httpVerb || 'GET';
+    dataType = dataType || 'jsonp'
+    commandMethod = this.getCommandMethod();
+    
     if (apiCommand[0] !== '/') {
         apiCommand = '/' + apiCommand;
     }
@@ -82,8 +87,10 @@ GitJs.prototype.generateApiRequest = function (apiCommand, data, httpVerb, dataT
     return {
         url: 'https://api.github.com' + apiCommand,
         data: data || {},
+        dataType: dataType,
+        httpVerb: httpVerb,
         send: function (callback) {
-            commandMethod.call(me, this.url, this.data, callback, dataType || 'jsonp');
+            commandMethod.call(me, this.url, this.data, callback);
         }
     };
 };
