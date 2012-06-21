@@ -1,5 +1,5 @@
 /*newcap: true*/
-/*globals TestCase, GitJs, assertFunction, commandMethod, assertException, assertNoException, assertEquals, assert, assertNull, assertSame, assertFalse, assertTrue*/
+/*globals TestCase, GitJs, assertFunction, assertTypeOf, commandMethod, assertException, assertNoException, assertEquals, assert, assertNull, assertSame, assertFalse, assertTrue*/
 
 'use strict';
 
@@ -9,7 +9,7 @@ TestCase("generateApiRequestTest", {
         this.$post = $.post;
         $.get = function() {
             $.get.called = true;
-        }        
+        };        
         this.gitjs = new GitJs();
     },
     tearDown: function () {
@@ -24,13 +24,16 @@ TestCase("generateApiRequestTest", {
     "test generateApiRequest with minimal options": function () {
         var apiCommand = '/user/opnsrce/repos',
             apiRequest = this.gitjs.generateApiRequest(apiCommand);
-            
+        
+        apiRequest.send();
+        
         assertTypeOf('object', apiRequest.data);
         assertEquals(0, Object.keys(apiRequest.data).length);
         assertEquals('https://api.github.com' + apiCommand, apiRequest.url);
         assertTypeOf('function', apiRequest.send);
         assertEquals('GET', apiRequest.httpVerb);
         assertEquals('jsonp', apiRequest.dataType);
+        assertTrue($.get.called);
     },
     "test generateApiRequest with all options": function () {
         var apiCommand = '/user/opnsrce/repos',
@@ -50,4 +53,11 @@ TestCase("generateApiRequestTest", {
         assertEquals(dataType, apiRequest.dataType);
         assertTrue($.get.called);
     },
+    "test slash added to non-slashed commands": function() {
+        var apiCommand = 'user/opnsrce/repos',
+            apiRequest = this.gitjs.generateApiRequest(apiCommand);
+        
+        assertEquals(apiRequest.url, 'https://api.github.com/' + apiCommand);
+        
+    }
 });
