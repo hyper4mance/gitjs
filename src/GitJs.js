@@ -74,7 +74,8 @@ GitJs.prototype.getCommandMethod = function (httpVerb) {
 GitJs.prototype.generateApiRequest = function (apiCommand, data, httpVerb, dataType) {
     
     var commandMethod,
-    me = this;
+        apiRequest,
+        me = this;
     
     httpVerb = httpVerb || 'GET';
     dataType = dataType || 'jsonp'
@@ -84,15 +85,18 @@ GitJs.prototype.generateApiRequest = function (apiCommand, data, httpVerb, dataT
         apiCommand = '/' + apiCommand;
     }
 
-    return {
+    apiRequest = {
         url: 'https://api.github.com' + apiCommand,
         data: data || {},
         dataType: dataType,
         httpVerb: httpVerb,
         send: function (callback) {
             commandMethod.call(me, this.url, this.data, callback);
+            return apiRequest;
         }
     };
+    
+    return apiRequest;
 };
 
 /**
