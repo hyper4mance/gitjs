@@ -78,7 +78,7 @@ GitJs.prototype.generateApiRequest = function (apiCommand, data, httpVerb, dataT
         me = this;
     
     httpVerb = httpVerb || 'GET';
-    dataType = dataType || 'jsonp'
+    dataType = dataType || 'jsonp';
     commandMethod = this.getCommandMethod();
     
     if (apiCommand[0] !== '/') {
@@ -193,6 +193,18 @@ GitJs.prototype.getIssuesByUser = function(callback, filter, state, labels, sort
 
 GitJs.prototype.getIssue = function(callback, user, repo, issueNumber) {
     this.generateApiRequest('/repos/' + user + '/' + repo + '/issues/' + issueNumber).send(callback);
+};
+
+GitJs.prototype.createIssue = function(callback, user, repo, options) {
+    options = options || {};
+    this.generateApiRequest('/repos/' + user + '/' + repo + '/issues', {
+        title: options.title || undefined, 
+        body: options.body || undefined,
+        assignee: options.assignee || undefined, 
+        milestone: options.milestone || undefined,
+        labels: options.labels || undefined     
+    }, 'POST').send(callback);
+    
 };
 
 /**
