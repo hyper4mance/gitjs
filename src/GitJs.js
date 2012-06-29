@@ -205,6 +205,21 @@
 
     };
 
+    GitJs.prototype.editIssue = function (callback, user, repo, issueNumber, options) {
+        var apiCallUrl = '/repos/' + user + '/' + repo + 'issues/' + issueNumber;
+        options = options || {};
+
+        this.generateApiRequest(apiCallUrl, {
+            title: options.title || undefined,
+            body: options.body || undefined,
+            assignee: options.assignee || undefined,
+            state: options.state || undefined,
+            milestone: options.milestone || undefined,
+            labels: options.labels || undefined
+        }, 'POST').send(callback);
+    };
+
+
     /**
      * Generates a link that, when clicked on, will prompt the user to grant the application access to their Github account.
      *
