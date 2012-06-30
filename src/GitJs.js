@@ -22,48 +22,47 @@
 /*jslint browser: true, windows: true, */
 /*global $:true */
 
-(function () {
-    'use strict';
+'use strict';
 
-    /**
+/**
      * Creates a new GitJs object.
      *
      * @constructor
      * @param {object} config - configuration object. See defaults variable for a list of possible properties.
      */
-    function GitJs(config) {
-        var defaults = {
-            inheriting: false,
-            clientId: undefined,
-            accessToken: undefined,
-            baseUrl: 'https://api.github.com',
-            mode: 'read'
-        };
+function GitJs(config) {
+    var defaults = {
+        inheriting: false,
+        clientId: undefined,
+        accessToken: undefined,
+        baseUrl: 'https://api.github.com',
+        mode: 'read'
+    };
 
-        this.config = $.extend(defaults, config);
-    }
+    this.config = $.extend(defaults, config);
+}
 
-    /**
+/**
      * Gets the jQuery method that GitJs#generateApiRequest is going to use to send the ajax request.
      *
      * @param {string} httpVerb The HTTP verb that the request will use,
      * @return string
      */
-    GitJs.prototype.getCommandMethod = function (httpVerb) {
-        var method = $.get;
+GitJs.prototype.getCommandMethod = function (httpVerb) {
+    var method = $.get;
 
-        switch (httpVerb) {
-        case 'GET':
-            method = $.get;
-            break;
-        case 'POST':
-            method = $.post;
-            break;
-        }
-        return method;
-    };
+    switch (httpVerb) {
+    case 'GET':
+        method = $.get;
+        break;
+    case 'POST':
+        method = $.post;
+        break;
+    }
+    return method;
+};
 
-    /**
+/**
      * Generates a request to be sent to the Github API.
      *
      * @param {string} apiCommand The Github API command (e.g., '/user') can start with a '/' but doesn't have to.
@@ -71,44 +70,44 @@
      * @param {string=GET} httpVerb The HTTP verb used to send the request. Defaults to 'GET'.
      * @param {string=jsonP} dataType The data type that the Github API will send its response in. Defaults to 'jsonp'
      */
-    GitJs.prototype.generateApiRequest = function (apiCommand, data, httpVerb, dataType) {
+GitJs.prototype.generateApiRequest = function (apiCommand, data, httpVerb, dataType) {
 
-        var commandMethod, apiRequest, requestSendMethod, me = this;
+    var commandMethod, apiRequest, requestSendMethod, me = this;
 
-        httpVerb = httpVerb || 'GET';
-        dataType = dataType || 'jsonp';
-        commandMethod = this.getCommandMethod();
+    httpVerb = httpVerb || 'GET';
+    dataType = dataType || 'jsonp';
+    commandMethod = this.getCommandMethod();
 
-        if (apiCommand[0] !== '/') {
-            apiCommand = '/' + apiCommand;
+    if (apiCommand[0] !== '/') {
+        apiCommand = '/' + apiCommand;
+    }
+
+    apiRequest = {
+        url: 'https://api.github.com' + apiCommand,
+        data: data || {},
+        dataType: dataType,
+        httpVerb: httpVerb,
+        send: function (callback) {
+            commandMethod.call(me, this.url, this.data, callback);
+            return apiRequest;
         }
-
-        apiRequest = {
-            url: 'https://api.github.com' + apiCommand,
-            data: data || {},
-            dataType: dataType,
-            httpVerb: httpVerb,
-            send: function (callback) {
-                commandMethod.call(me, this.url, this.data, callback);
-                return apiRequest;
-            }
-        };
-
-        return apiRequest;
     };
 
-    /**
+    return apiRequest;
+};
+
+/**
      * Authenticates a user with the Github API using an access token.
      *
      * @param {function(data, textStatus, jqXhr)=} callback
      */
-    GitJs.prototype.authenticateUser = function (callback) {
-        this.generateApiRequest('/user', {
-            access_token: this.config.accessToken
-        }).send(callback);
-    };
+GitJs.prototype.authenticateUser = function (callback) {
+    this.generateApiRequest('/user', {
+        access_token: this.config.accessToken
+    }).send(callback);
+};
 
-    /**
+/**
      * Get comments for a specific gist.
      *
      * @param {function(data, textStatus, jqXhr)} callback
@@ -116,17 +115,17 @@
      * @param {integer=} commentId If specified, only data about the specified comment will be returned.
      *
      */
-    GitJs.prototype.getGistComments = function (callback, gistId, commentId) {
-        var apiCommand = '';
-        if (commentId === undefined || isNaN(commentId) === true) {
-            apiCommand = '/gists/' + gistId + '/comments';
-        } else {
-            apiCommand = '/gits/comments/' + commentId;
-        }
-        this.generateApiRequest(apiCommand).send(callback);
-    };
+GitJs.prototype.getGistComments = function (callback, gistId, commentId) {
+    var apiCommand = '';
+    if (commentId === undefined || isNaN(commentId) === true) {
+        apiCommand = '/gists/' + gistId + '/comments';
+    } else {
+        apiCommand = '/gits/comments/' + commentId;
+    }
+    this.generateApiRequest(apiCommand).send(callback);
+};
 
-    /**
+/**
      * Get a list of repos related to a user.
      *
      * @param {function(data, textStatus, jqXhr)} callback
@@ -135,21 +134,21 @@
      * @param {string=} sort What field to sort the data by.
      * @param {string=} direction What direction to sort the data by (ascending or descending).
      */
-    GitJs.prototype.getReposByUser = function (callback, username, type, sort, direction) {
-        var apiCommand = '';
-        if (username !== undefined) {
-            apiCommand = '/users/' + username + '/repos';
-        } else {
-            apiCommand = '/user/repos';
-        }
-        this.generateApiRequest(apiCommand, {
-            type: type || undefined,
-            sort: sort || undefined,
-            direction: direction || undefined
-        }).send(callback);
-    };
+GitJs.prototype.getReposByUser = function (callback, username, type, sort, direction) {
+    var apiCommand = '';
+    if (username !== undefined) {
+        apiCommand = '/users/' + username + '/repos';
+    } else {
+        apiCommand = '/user/repos';
+    }
+    this.generateApiRequest(apiCommand, {
+        type: type || undefined,
+        sort: sort || undefined,
+        direction: direction || undefined
+    }).send(callback);
+};
 
-    /**
+/**
      * Gets information about respos belonging to a particular organization.
      *
      * @param {function(data, textStatus, jqXhr)} callback
@@ -158,15 +157,15 @@
      * @param {string=} sort What field to sort the data by.
      * @param {string=} direction What direction to sort the data by (ascending or descending).
      */
-    GitJs.prototype.getReposByOrg = function (callback, organization, type, sort, direction) {
-        this.generateApiRequest('/orgs/' + organization + '/repos', {
-            type: type || undefined,
-            sort: sort || undefined,
-            direction: direction || undefined
-        }).send(callback);
-    };
+GitJs.prototype.getReposByOrg = function (callback, organization, type, sort, direction) {
+    this.generateApiRequest('/orgs/' + organization + '/repos', {
+        type: type || undefined,
+        sort: sort || undefined,
+        direction: direction || undefined
+    }).send(callback);
+};
 
-    /**
+/**
      * Gets a list of issues associated with the currently logged in user
      *
      * @param {function(data, textStatus, jqXhr)} callback
@@ -178,91 +177,90 @@
      * @param {string=} since Only show issues since... (timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ).
      *
      */
-    GitJs.prototype.getIssuesByUser = function (callback, filter, state, labels, sort, direction, since) {
-        this.generateApiRequest('/issues?access_token=' + this.config.accessToken, {
-            filter: filter || undefined,
-            state: state || undefined,
-            labels: labels || undefined,
-            sort: sort || undefined,
-            direction: direction || undefined,
-            since: since || undefined
-        }, 'GET').send(callback);
-    };
+GitJs.prototype.getIssuesByUser = function (callback, filter, state, labels, sort, direction, since) {
+    this.generateApiRequest('/issues?access_token=' + this.config.accessToken, {
+        filter: filter || undefined,
+        state: state || undefined,
+        labels: labels || undefined,
+        sort: sort || undefined,
+        direction: direction || undefined,
+        since: since || undefined
+    }, 'GET').send(callback);
+};
 
-    GitJs.prototype.getIssue = function (callback, user, repo, issueNumber) {
-        this.generateApiRequest('/repos/' + user + '/' + repo + '/issues/' + issueNumber).send(callback);
-    };
+GitJs.prototype.getIssue = function (callback, user, repo, issueNumber) {
+    this.generateApiRequest('/repos/' + user + '/' + repo + '/issues/' + issueNumber).send(callback);
+};
 
-    GitJs.prototype.createIssue = function (callback, user, repo, options) {
-        options = options || {};
-        this.generateApiRequest('/repos/' + user + '/' + repo + '/issues', {
-            title: options.title || undefined,
-            body: options.body || undefined,
-            assignee: options.assignee || undefined,
-            milestone: options.milestone || undefined,
-            labels: options.labels || undefined
-        }, 'POST').send(callback);
+GitJs.prototype.createIssue = function (callback, user, repo, options) {
+    options = options || {};
+    this.generateApiRequest('/repos/' + user + '/' + repo + '/issues', {
+        title: options.title || undefined,
+        body: options.body || undefined,
+        assignee: options.assignee || undefined,
+        milestone: options.milestone || undefined,
+        labels: options.labels || undefined
+    }, 'POST').send(callback);
 
-    };
+};
 
-    GitJs.prototype.editIssue = function (callback, user, repo, issueNumber, options) {
-        var apiCallUrl = '/repos/' + user + '/' + repo + 'issues/' + issueNumber;
-        options = options || {};
+GitJs.prototype.editIssue = function (callback, user, repo, issueNumber, options) {
+    var apiCallUrl = '/repos/' + user + '/' + repo + 'issues/' + issueNumber;
+    options = options || {};
 
-        this.generateApiRequest(apiCallUrl, {
-            title: options.title || undefined,
-            body: options.body || undefined,
-            assignee: options.assignee || undefined,
-            state: options.state || undefined,
-            milestone: options.milestone || undefined,
-            labels: options.labels || undefined
-        }, 'POST').send(callback);
-    };
+    this.generateApiRequest(apiCallUrl, {
+        title: options.title || undefined,
+        body: options.body || undefined,
+        assignee: options.assignee || undefined,
+        state: options.state || undefined,
+        milestone: options.milestone || undefined,
+        labels: options.labels || undefined
+    }, 'POST').send(callback);
+};
 
 
-    /**
+/**
      * Generates a link that, when clicked on, will prompt the user to grant the application access to their Github account.
      *
      * @param {string} clientId The client ID of the application being authorized.
      * @param {scope=} string A CSV string representing what scope the application will request.
      * @param {redirectUri} The URI the browser should be redirected to once the app is authorized.
      */
-    GitJs.prototype.generateAuthorizationLink = function (clientId, scope, redirectUri) {
-        var urlParams = ['client_id=' + clientId];
-        if (scope !== undefined) {
-            urlParams.push('scope=' + scope);
-        }
-        if (redirectUri !== undefined) {
-            urlParams.push('redirect_uri=' + redirectUri);
-        }
-        return 'https://github.com/login/oauth/authorize?' + urlParams.join('&');
-    };
+GitJs.prototype.generateAuthorizationLink = function (clientId, scope, redirectUri) {
+    var urlParams = ['client_id=' + clientId];
+    if (scope !== undefined) {
+        urlParams.push('scope=' + scope);
+    }
+    if (redirectUri !== undefined) {
+        urlParams.push('redirect_uri=' + redirectUri);
+    }
+    return 'https://github.com/login/oauth/authorize?' + urlParams.join('&');
+};
 
-    /**
+/**
      * Gets information about comments on a gist.
      *
      * @param {function(data, textStatus, jqXhr)} callback
      * @param {integer=} gistId The Id of the gist that the comments belong to.
      * @param {integer=} commentId The Id of an individual comment to be retrieved. If absent, all gist comments are returned.
      */
-    GitJs.prototype.getGistComments = function (callback, gistId, commentId) {
-        var apiCommand = '/gists/:gist_id/comments';
-        if (commentId !== undefined) {
-            apiCommand = '/gists/comments/' + commentId;
-        }
-        this.generateApiRequest(apiCommand).send(callback);
-    };
+GitJs.prototype.getGistComments = function (callback, gistId, commentId) {
+    var apiCommand = '/gists/:gist_id/comments';
+    if (commentId !== undefined) {
+        apiCommand = '/gists/comments/' + commentId;
+    }
+    this.generateApiRequest(apiCommand).send(callback);
+};
 
-    /**
+/**
      * Creates a comment on a gist.
      *
      * @param {function(data, textStatus, jqXhr)} callback
      * @param {integer} gistId The Id of the gist that the comment should belong to.
      * @param {string} comment
      */
-    GitJs.prototype.createGistComment = function (callback, gistId, comment) {
-        this.generateApiRequest('/gists' + gistId + '/comments', {
-            body: comment
-        }).send(callback);
-    };
-}());
+GitJs.prototype.createGistComment = function (callback, gistId, comment) {
+    this.generateApiRequest('/gists' + gistId + '/comments', {
+        body: comment
+    }).send(callback);
+};
