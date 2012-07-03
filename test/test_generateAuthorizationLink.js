@@ -1,4 +1,5 @@
 /*globals buster:true, $:true, GitJs:true*/
+
 (function (G) {
     'use strict';
     var assert = buster.assert;
@@ -20,4 +21,4 @@
             assert.equals(this.gitjs.generateAuthorizationLink('123', 'public', 'http://www.cnn.com'), expectedResult);
         }
     });
-}());
+}(GitJs));
