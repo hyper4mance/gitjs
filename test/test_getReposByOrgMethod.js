@@ -1,6 +1,7 @@
 /*globals buster:true, $:true, GitJs:true*/
-'use strict';
-(function(G, $) {
+
+(function (G) {
+    'use strict';
     var assert = buster.assert,
         refute = buster.refute;
 
@@ -29,7 +30,7 @@
 
 
         "test getReposByOrg method with minimal options": function () {
-            this.gitjs.getReposByOrg(function(){}, 'org');
+            this.gitjs.getReposByOrg(function () {}, 'org');
             assert.isObject(this.apiRequest);
             assert(this.gitjs.sendApiRequestCalled);
             assert.equals('https://api.github.com/orgs/org/repos', this.apiRequest.url);
