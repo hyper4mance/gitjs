@@ -25,11 +25,11 @@
 'use strict';
 
 /**
-     * Creates a new GitJs object.
-     *
-     * @constructor
-     * @param {object} config - configuration object. See defaults variable for a list of possible properties.
-     */
+ * Creates a new GitJs object.
+ *
+ * @constructor
+ * @param {object} config - configuration object. See defaults variable for a list of possible properties.
+ */
 function GitJs(config) {
     var defaults = {
         inheriting: false,
@@ -43,11 +43,11 @@ function GitJs(config) {
 }
 
 /**
-     * Gets the jQuery method that GitJs#generateApiRequest is going to use to send the ajax request.
-     *
-     * @param {string} httpVerb The HTTP verb that the request will use,
-     * @return string
-     */
+ * Gets the jQuery method that GitJs#generateApiRequest is going to use to send the ajax request.
+ *
+ * @param {string} httpVerb The HTTP verb that the request will use,
+ * @return string
+ */
 GitJs.prototype.getCommandMethod = function (httpVerb) {
     var method = $.get;
 
@@ -63,13 +63,13 @@ GitJs.prototype.getCommandMethod = function (httpVerb) {
 };
 
 /**
-     * Generates a request to be sent to the Github API.
-     *
-     * @param {string} apiCommand The Github API command (e.g., '/user') can start with a '/' but doesn't have to.
-     * @param {object={}} data An object literal of command parameters to send along with the API request.
-     * @param {string=GET} httpVerb The HTTP verb used to send the request. Defaults to 'GET'.
-     * @param {string=jsonP} dataType The data type that the Github API will send its response in. Defaults to 'jsonp'
-     */
+ * Generates a request to be sent to the Github API.
+ *
+ * @param {string} apiCommand The Github API command (e.g., '/user') can start with a '/' but doesn't have to.
+ * @param {object={}} data An object literal of command parameters to send along with the API request.
+ * @param {string=GET} httpVerb The HTTP verb used to send the request. Defaults to 'GET'.
+ * @param {string=jsonP} dataType The data type that the Github API will send its response in. Defaults to 'jsonp'
+ */
 GitJs.prototype.generateApiRequest = function (apiCommand, data, httpVerb, dataType) {
 
     var commandMethod, apiRequest, requestSendMethod, me = this;
@@ -97,10 +97,10 @@ GitJs.prototype.generateApiRequest = function (apiCommand, data, httpVerb, dataT
 };
 
 /**
-     * Authenticates a user with the Github API using an access token.
-     *
-     * @param {function(data, textStatus, jqXhr)=} callback
-     */
+ * Authenticates a user with the Github API using an access token.
+ *
+ * @param {function(data, textStatus, jqXhr)=} callback
+ */
 GitJs.prototype.authenticateUser = function (callback) {
     this.generateApiRequest('/user', {
         access_token: this.config.accessToken
@@ -108,13 +108,13 @@ GitJs.prototype.authenticateUser = function (callback) {
 };
 
 /**
-     * Get comments for a specific gist.
-     *
-     * @param {function(data, textStatus, jqXhr)} callback
-     * @param {integer} gistId
-     * @param {integer=} commentId If specified, only data about the specified comment will be returned.
-     *
-     */
+ * Get comments for a specific gist.
+ *
+ * @param {function(data, textStatus, jqXhr)} callback
+ * @param {integer} gistId
+ * @param {integer=} commentId If specified, only data about the specified comment will be returned.
+ *
+ */
 GitJs.prototype.getGistComments = function (callback, gistId, commentId) {
     var apiCommand = '';
     if (commentId === undefined || isNaN(commentId) === true) {
@@ -126,14 +126,14 @@ GitJs.prototype.getGistComments = function (callback, gistId, commentId) {
 };
 
 /**
-     * Get a list of repos related to a user.
-     *
-     * @param {function(data, textStatus, jqXhr)} callback
-     * @param {string=} username If not specified, repo date for the currently logged in user is returned.
-     * @param {string=} type The type of data about a repo to return (e.g., 'public'). See API documention for a list of possible values.
-     * @param {string=} sort What field to sort the data by.
-     * @param {string=} direction What direction to sort the data by (ascending or descending).
-     */
+ * Get a list of repos related to a user.
+ *
+ * @param {function(data, textStatus, jqXhr)} callback
+ * @param {string=} username If not specified, repo date for the currently logged in user is returned.
+ * @param {string=} type The type of data about a repo to return (e.g., 'public'). See API documention for a list of possible values.
+ * @param {string=} sort What field to sort the data by.
+ * @param {string=} direction What direction to sort the data by (ascending or descending).
+ */
 GitJs.prototype.getReposByUser = function (callback, username, type, sort, direction) {
     var apiCommand = '';
     if (username !== undefined) {
@@ -149,14 +149,14 @@ GitJs.prototype.getReposByUser = function (callback, username, type, sort, direc
 };
 
 /**
-     * Gets information about respos belonging to a particular organization.
-     *
-     * @param {function(data, textStatus, jqXhr)} callback
-     * @param {string} organization
-     * @param {string=} type The type of data about a repo to return (e.g., 'public'). See API documention for a list of possible values.
-     * @param {string=} sort What field to sort the data by.
-     * @param {string=} direction What direction to sort the data by (ascending or descending).
-     */
+ * Gets information about respos belonging to a particular organization.
+ *
+ * @param {function(data, textStatus, jqXhr)} callback
+ * @param {string} organization
+ * @param {string=} type The type of data about a repo to return (e.g., 'public'). See API documention for a list of possible values.
+ * @param {string=} sort What field to sort the data by.
+ * @param {string=} direction What direction to sort the data by (ascending or descending).
+ */
 GitJs.prototype.getReposByOrg = function (callback, organization, type, sort, direction) {
     this.generateApiRequest('/orgs/' + organization + '/repos', {
         type: type || undefined,
@@ -166,17 +166,17 @@ GitJs.prototype.getReposByOrg = function (callback, organization, type, sort, di
 };
 
 /**
-     * Gets a list of issues associated with the currently logged in user
-     *
-     * @param {function(data, textStatus, jqXhr)} callback
-     * @param {string=} filter What kinds of issues to show (e.g., 'created' only shows issues created by you).
-     * @param {string=} state What state the issues should be in (e.g., 'open').
-     * @param {string=} labels String list of comma separated label names (e.g., bug, ui, @high).
-     * @param {string=} sort What field to sort the data by.
-     * @param {string=} direction What direction to sort the data by (ascending or descending).
-     * @param {string=} since Only show issues since... (timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ).
-     *
-     */
+ * Gets a list of issues associated with the currently logged in user
+ *
+ * @param {function(data, textStatus, jqXhr)} callback
+ * @param {string=} filter What kinds of issues to show (e.g., 'created' only shows issues created by you).
+ * @param {string=} state What state the issues should be in (e.g., 'open').
+ * @param {string=} labels String list of comma separated label names (e.g., bug, ui, @high).
+ * @param {string=} sort What field to sort the data by.
+ * @param {string=} direction What direction to sort the data by (ascending or descending).
+ * @param {string=} since Only show issues since... (timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ).
+ *
+ */
 GitJs.prototype.getIssuesByUser = function (callback, filter, state, labels, sort, direction, since) {
     this.generateApiRequest('/issues?access_token=' + this.config.accessToken, {
         filter: filter || undefined,
@@ -220,12 +220,12 @@ GitJs.prototype.editIssue = function (callback, user, repo, issueNumber, options
 
 
 /**
-     * Generates a link that, when clicked on, will prompt the user to grant the application access to their Github account.
-     *
-     * @param {string} clientId The client ID of the application being authorized.
-     * @param {scope=} string A CSV string representing what scope the application will request.
-     * @param {redirectUri} The URI the browser should be redirected to once the app is authorized.
-     */
+ * Generates a link that, when clicked on, will prompt the user to grant the application access to their Github account.
+ *
+ * @param {string} clientId The client ID of the application being authorized.
+ * @param {string=} scope A CSV string representing what scope the application will request.
+ * @param {string=} redirectUri The URI the browser should be redirected to once the app is authorized.
+ */
 GitJs.prototype.generateAuthorizationLink = function (clientId, scope, redirectUri) {
     var urlParams = ['client_id=' + clientId];
     if (scope !== undefined) {
@@ -253,12 +253,12 @@ GitJs.prototype.getGistComments = function (callback, gistId, commentId) {
 };
 
 /**
-     * Creates a comment on a gist.
-     *
-     * @param {function(data, textStatus, jqXhr)} callback
-     * @param {integer} gistId The Id of the gist that the comment should belong to.
-     * @param {string} comment
-     */
+ * Creates a comment on a gist.
+ *
+ * @param {function(data, textStatus, jqXhr)} callback
+ * @param {integer} gistId The Id of the gist that the comment should belong to.
+ * @param {string} comment
+ */
 GitJs.prototype.createGistComment = function (callback, gistId, comment) {
     this.generateApiRequest('/gists' + gistId + '/comments', {
         body: comment

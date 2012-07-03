@@ -6,7 +6,7 @@
 TestCase("getReposByOrg", {
     setUp: function () {
         var me = this;
-           
+
         this.gitjs = new GitJs();
         this.generateApiRequestOriginal = this.gitjs.generateApiRequest
         this.gitjs.generateApiRequest = function (apiCommand, data, httpVerb, dataType) {
@@ -16,11 +16,11 @@ TestCase("getReposByOrg", {
             }
             me.apiRequest = request;
             return request;
-        }        
+        }
     },
     tearDown: function () {
         this.gitjs.generateApiRequest = this.generateApiRequestOriginal;
-        
+
         delete this.generateApiRequestOriginal;
         delete this.gitjs;
         delete this.apiRequest;

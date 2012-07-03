@@ -1,11 +1,17 @@
-server: http://127.0.0.1:4224
+var config = module.exports;
 
-load:
-  - src/*.js
-  - test/deps/*.js
-  - test/*.js
-  
-plugin:
- - name: "coverage"
-   jar: "test/deps/plugins/coverage.jar"
-   module: "com.google.jstestdriver.coverage.CoverageModule"
+config['GitJs Tests'] = {
+    rootPath: '../',
+    environment: 'browser',
+    sources: [
+        'src/Gitjs.js'
+    ],
+    deps: [
+        'test/deps/*.js'
+    ],
+    tests: [
+        'test/test_constructor.js',
+        'test/test_generateApiRequest.js',
+        'test/test_generateAuthorizationLink.js'
+    ]
+};
