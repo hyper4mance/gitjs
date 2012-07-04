@@ -33,7 +33,7 @@ var GitJs = (
                 this.config = {
                     inheriting: config.inheriting || false,
                     clientId: config.clientId,
-                    accessToken: config.accessToken || undefined,
+                    accessToken: config.accessToken,
                     baseUrl: config.baseUrl || 'https://api.github.com',
                     mode: config.mode || 'read'
                 };
