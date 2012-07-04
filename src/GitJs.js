@@ -23,18 +23,20 @@
 /*global $:true */
 
 var GitJs = (
-    function ($, config) {
+    function ($) {
         'use strict';
         var getCommandMethod,
             GitJs = function (config) {
-                var defaults = {
-                    inheriting: false,
-                    clientId: undefined,
-                    accessToken: undefined,
-                    baseUrl: 'https://api.github.com',
-                    mode: 'read'
+                if (config === undefined) {
+                    config = {};
+                }
+                this.config = {
+                    inheriting: config.inheriting || false,
+                    clientId: config.clientId,
+                    accessToken: config.accessToken || undefined,
+                    baseUrl: config.baseUrl || 'https://api.github.com',
+                    mode: config.mode || 'read'
                 };
-                this.config = $.extend(defaults, config);
             };
 
         /**
@@ -249,7 +251,16 @@ var GitJs = (
             }).send(callback);
         };
 
-        return GitJs;
+        GitJs.prototype.getTree = function (callback, user, repo, sha, recursive) {
+            var apiCommand = '/repos/' + user + '/' + repo + '/' + sha;
 
+            if (recursive === true) {
+                apiCommand += '?recursive=1';
+            }
+            this.generateApiRequest(apiCommand).send(callback);
+        };
+
+        return GitJs;
+        
     }($)
 );
