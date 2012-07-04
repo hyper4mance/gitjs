@@ -18,7 +18,7 @@
         },
         "test generateAuthorizationLink method with all options": function () {
             var expectedResult = 'https://github.com/login/oauth/authorize?client_id=123&scope=public&redirect_uri=http://www.cnn.com';
-            assert.equals(this.gitjs.generateAuthorizationLink('123', 'public', 'http://www.cnn.com'), expectedResult);
+            assert.equals(this.gitjs.generateAuthorizationLink('123', {scope: 'public', redirectUri: 'http://www.cnn.com'}), expectedResult);
         }
     });
 }(GitJs));
