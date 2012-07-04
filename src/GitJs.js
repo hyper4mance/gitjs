@@ -109,6 +109,7 @@ var GitJs = (
             var urlParams = ['client_id=' + clientId],
                 scope = options.scope,
                 redirectUri = options.redirectUri;
+
             if (scope !== undefined) {
                 urlParams.push('scope=' + scope);
             }
@@ -132,6 +133,7 @@ var GitJs = (
 
             var apiCommand = '',
                 commentId = options.commentId;
+
             if (commentId === undefined || isNaN(commentId) === true) {
                 apiCommand = '/gists/' + gistId + '/comments';
             } else {
@@ -180,11 +182,12 @@ var GitJs = (
         GitJs.prototype.getReposByOrg = function (callback, organization, options) {
             options = options || {};
 
-            var type = options.type,
+            var apiCommand = '/orgs/' + organization + '/repos',
+                type = options.type,
                 sort = options.sort,
                 direction = options.direction;
 
-            this.generateApiRequest('/orgs/' + organization + '/repos', {
+            this.generateApiRequest(apiCommand, {
                 type: type,
                 sort: sort,
                 direction: direction
@@ -206,14 +209,15 @@ var GitJs = (
         GitJs.prototype.getIssuesByUser = function (callback, options) {
             options = options || {};
 
-            var filter = options.filter,
+            var apiCommand = '/issues?access_token=' + this.config.accessToken,
+                filter = options.filter,
                 state = options.state,
                 labels = options.labels,
                 sort = options.sort,
                 direction = options.direction,
                 since = options.since;
 
-            this.generateApiRequest('/issues?access_token=' + this.config.accessToken, {
+            this.generateApiRequest(apiCommand, {
                 filter: filter,
                 state: state,
                 labels: labels,
@@ -230,13 +234,14 @@ var GitJs = (
         GitJs.prototype.createIssue = function (callback, user, repo, options) {
             options = options || {};
 
-            var title = options.title,
+            var apiCommand = '/repos/' + user + '/' + repo + '/issues',
+                title = options.title,
                 body = options.body,
                 assignee = options.assignee,
                 milestone = options.milestone,
                 labels = options.labels;
 
-            this.generateApiRequest('/repos/' + user + '/' + repo + '/issues', {
+            this.generateApiRequest(apiCommand, {
                 title: title,
                 body: body,
                 assignee: assignee,
@@ -249,7 +254,7 @@ var GitJs = (
         GitJs.prototype.editIssue = function (callback, user, repo, issueNumber, options) {
             options = options || {};
 
-            var apiCallUrl = '/repos/' + user + '/' + repo + 'issues/' + issueNumber,
+            var apiCommand = '/repos/' + user + '/' + repo + 'issues/' + issueNumber,
                 title = options.title,
                 body = options.body,
                 assignee = options.assignee,
@@ -257,7 +262,7 @@ var GitJs = (
                 milestone = options.milestone,
                 labels = options.labels;
 
-            this.generateApiRequest(apiCallUrl, {
+            this.generateApiRequest(apiCommand, {
                 title: title,
                 body: body,
                 assignee: assignee,
@@ -291,7 +296,9 @@ var GitJs = (
         * @param {string} comment
         */
         GitJs.prototype.createGistComment = function (callback, gistId, comment) {
-            this.generateApiRequest('/gists' + gistId + '/comments', {
+            var apiCommand = '/gists' + gistId + '/comments';
+            
+            this.generateApiRequest(apiCommand, {
                 body: comment
             }).send(callback);
         };
