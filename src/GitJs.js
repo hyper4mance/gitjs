@@ -19,12 +19,19 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-/*jslint browser: true, windows: true, */
-/*global $:true */
-
 var GitJs = (function ($) {
     'use strict';
 
+    /**
+     * Constructor
+     *
+     * @param {object} config
+     * @param {boolean} [config.inheriting=false] Whether or not the constructor is being
+     *   called as part of the prototype for another object.
+     * @param {string} [config.clientId] The client Id of your application.
+     * @param {string} [config.accessToken] The access token of the currently logged in user.
+     * @param {baseUrl} [config.baseUrl=https://api.github.com] The base url used to send all commands to the api.
+     */
     var G = function (config) {
         if (config === undefined) {
             config = {};
@@ -33,8 +40,7 @@ var GitJs = (function ($) {
             inheriting: config.inheriting || false,
             clientId: config.clientId,
             accessToken: config.accessToken,
-            baseUrl: config.baseUrl || 'https://api.github.com',
-            mode: config.mode || 'read'
+            baseUrl: config.baseUrl || 'https://api.github.com'
         };
     };
 
@@ -65,9 +71,9 @@ var GitJs = (function ($) {
          * Generates a request to be sent to the Github API.
          *
          * @param {string} apiCommand The Github API command (e.g., '/user') can start with a '/' but doesn't have to.
-         * @param {object={}} data An object literal of command parameters to send along with the API request.
-         * @param {string=GET} httpVerb The HTTP verb used to send the request. Defaults to 'GET'.
-         * @param {string=jsonP} dataType The data type that the Github API will send its response in. Defaults to 'jsonp'
+         * @param {object} [data] An object literal of command parameters to send along with the API request.
+         * @param {string} [httpVerb=GET] The HTTP verb used to send the request. Defaults to 'GET'.
+         * @param {string} [dataType=jsonp] The data type that the Github API will send its response in. Defaults to 'jsonp'
          */
         generateApiRequest: function (apiCommand, data, httpVerb, dataType) {
             var commandMethod,
@@ -101,8 +107,9 @@ var GitJs = (function ($) {
          * Generates a link that, when clicked on, will prompt the user to grant the application access to their Github account.
          *
          * @param {string} clientId The client ID of the application being authorized.
-         * @param {string=} scope A CSV string representing what scope the application will request.
-         * @param {string=} redirectUri The URI the browser should be redirected to once the app is authorized.
+         * @param {object} [options] A CSV string representing what scope the application will request.
+         * @param {string} [options.scope] A CSV string representing what scope the application will request.
+         * @param {string} [options.redirectUri] The URI the browser should be redirected to once the app is authorized.
          */
         generateAuthorizationLink: function (clientId, options) {
             options = options || {};
@@ -119,12 +126,16 @@ var GitJs = (function ($) {
             }
             return 'https://github.com/login/oauth/authorize?' + urlParams.join('&');
         },
+
         /**
          * Get comments for a specific gist.
          *
-         * @param {function(data, textStatus, jqXhr)} callback
+         * @param {Function(data, textStatus, jqXhr)} callback
          * @param {integer} gistId
-         * @param {integer=} commentId If specified, only data about the specified comment will be returned.
+         * @param {object} options Additional options used when retrieving comments
+         * @param {integer} [options.commentId] The Id of a specific comment that should be returned.
+         *   If not specified, all comments for the given gist are returned.
+         *
          */
         getGistComments: function (callback, gistId, options) {
             options = options || {};
@@ -142,11 +153,14 @@ var GitJs = (function ($) {
         /**
          * Get a list of repos related to a user.
          *
-         * @param {function(data, textStatus, jqXhr)} callback
-         * @param {string=} username If not specified, repo date for the currently logged in user is returned.
-         * @param {string=} type The type of data about a repo to return (e.g., 'public'). See API documention for a list of possible values.
-         * @param {string=} sort What field to sort the data by.
-         * @param {string=} direction What direction to sort the data by (ascending or descending).
+         * @param {Function(data, textStatus, jqXhr)} callback
+         * @param {string=} [username] What user the repos should belong to. If not specified,
+         *   repo date for the currently logged in user is returned.
+         * @param {object} options
+         * @param {string} [options.type] The type of data about a repo to return (e.g., 'public').
+         *   See API documention for a list of possible values.
+         * @param {string} [options.sort] What field to sort the data by.
+         * @param {string} [options.direction] What direction to sort the data by (ascending or descending).
          */
         getReposByUser: function (callback, username, options) {
             options = options || {};
@@ -170,11 +184,12 @@ var GitJs = (function ($) {
         /**
          * Gets information about respos belonging to a particular organization.
          *
-         * @param {function(data, textStatus, jqXhr)} callback
+         * @param {Function(data, textStatus, jqXhr)} callback
          * @param {string} organization
-         * @param {string=} type The type of data about a repo to return (e.g., 'public'). See API documention for a list of possible values.
-         * @param {string=} sort What field to sort the data by.
-         * @param {string=} direction What direction to sort the data by (ascending or descending).
+         * @param {object} options
+         * @param {string} [options.type] The type of data about a repo to return (e.g., 'public'). See API documention for a list of possible values.
+         * @param {string} [options.sort] What field to sort the data by.
+         * @param {string} [options.direction] What direction to sort the data by (ascending or descending).
          */
         getReposByOrg: function (callback, organization, options) {
             options = options || {};
@@ -194,13 +209,14 @@ var GitJs = (function ($) {
         /**
          * Gets a list of issues associated with the currently logged in user
          *
-         * @param {function(data, textStatus, jqXhr)} callback
-         * @param {string=} filter What kinds of issues to show (e.g., 'created' only shows issues created by you).
-         * @param {string=} state What state the issues should be in (e.g., 'open').
-         * @param {string=} labels String list of comma separated label names (e.g., bug, ui, @high).
-         * @param {string=} sort What field to sort the data by.
-         * @param {string=} direction What direction to sort the data by (ascending or descending).
-         * @param {string=} since Only show issues since... (timestamp in ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ).
+         * @param {Function(data, textStatus, jqXhr)} callback
+         * @param {object} [options]
+         * @param {string} [options.filter] What kinds of issues to show (e.g., 'created' only shows issues created by you).
+         * @param {string} [options.state] What state the issues should be in (e.g., 'open').
+         * @param {string} [options.labels] String list of comma separated label names (e.g., bug, ui, @high).
+         * @param {string} [options.sort] What field to sort the data by.
+         * @param {string} [options.direction] What direction to sort the data by (ascending or descending).
+         * @param {string} [options.since] Only show issues since the given timestamp
          *
          */
         getIssuesByUser: function (callback, options) {
