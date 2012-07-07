@@ -298,6 +298,7 @@ var GitJs = (function ($) {
                 body: comment
             }).send(callback);
         },
+
         getTree: function (callback, user, repo, sha, recursive) {
             var apiCommand = '/repos/' + user + '/' + repo + '/' + sha;
 
@@ -305,6 +306,25 @@ var GitJs = (function ($) {
                 apiCommand += '?recursive=1';
             }
             this.generateApiRequest(apiCommand).send(callback);
+        },
+
+        /**
+         * @param {function(data, textStatus, jqXhr)} callback
+         * @param {string} user The user the tree belongs to.
+         * @param {string} repo The repo the tree belongs to.
+         * @param {object} options
+         * @param {object[]} options.trees Array of Hash objects (of path, mode, type and sha) specifying a tree structure.
+         *   See API documentation for hash properties.
+         */
+        createTree: function(callback, user, repo, options) {
+            var apiCommand = '/repos/' + user + '/' + repo + '/git/trees',
+                baseTree = options.baseTree,
+                trees = options.tree;
+
+            this.generateApiRequest(apiCommand, {
+                baseTree: baseTree,
+                tree: trees
+            }).send(callback);
         }
     };
 
