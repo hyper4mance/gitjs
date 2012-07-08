@@ -375,7 +375,14 @@ var GitJs = (function ($) {
                 baseTree: baseTree,
                 tree: trees
             }).send(callback);
+        },
+
+        getTagInfo: function (callback, user, repo, sha) {
+            var apiCommand = '/repos/' + user + '/' + repo + '/git/tags/' + sha;
+
+            this.generateApiRequest(apiCommand).send(callback);
         }
+
     };
 
     return G;
