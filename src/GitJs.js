@@ -1,7 +1,7 @@
 /*
- * Permission is hereby granted, free of charge, to any person obtaining a
- * copy of this software and associated documentation files (the
- * "Software"), to deal in the Software without restriction, including
+ * @license Permission is hereby granted, free of charge, to any person
+ * obtaining a copy of this software and associated documentation files
+ * (the "Software"), to deal in the Software without restriction, including
  * without limitation the rights to use, copy, modify, merge, publish,
  * distribute, sublicense, and/or sell copies of the Software, and to
  * permit persons to whom the Software is furnished to do so, subject to
@@ -19,12 +19,19 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+/**
+ * @module GitJs
+ */
+
 var GitJs = (function ($) {
     'use strict';
 
     /**
      * Constructor
      *
+     * @public
+     * @constructor
+     * @alias module:GitJs
      * @param {object} config
      * @param {boolean} [config.inheriting=false] Whether or not the constructor is being
      *   called as part of the prototype for another object.
@@ -47,6 +54,8 @@ var GitJs = (function ($) {
     /**
      * Gets the jQuery method that GitJs#generateApiRequest is going to use to send the ajax request.
      *
+     * @scope GitJs
+     * @private
      * @param {string} httpVerb The HTTP verb that the request will use,
      * @return string
      */
@@ -70,6 +79,7 @@ var GitJs = (function ($) {
         /**
          * Generates a request to be sent to the Github API.
          *
+         * @public
          * @param {string} apiCommand The Github API command (e.g., '/user') can start with a '/' but doesn't have to.
          * @param {object} [data] An object literal of command parameters to send along with the API request.
          * @param {string} [httpVerb=GET] The HTTP verb used to send the request. Defaults to 'GET'.
@@ -106,6 +116,7 @@ var GitJs = (function ($) {
         /**
          * Generates a link that, when clicked on, will prompt the user to grant the application access to their Github account.
          *
+         * @public
          * @param {string} clientId The client ID of the application being authorized.
          * @param {object} [options] A CSV string representing what scope the application will request.
          * @param {string} [options.scope] A CSV string representing what scope the application will request.
@@ -130,7 +141,11 @@ var GitJs = (function ($) {
         /**
          * Get comments for a specific gist.
          *
+         * @public
          * @param {Function(data, textStatus, jqXhr)} callback
+         * @param {object} callback.data A JSON object containing the response from the server.
+         * @param {object} callback.text The text response from the server.
+         * @param {object} callback.jqXhr jqXR object ({@link http://api.jquery.com/types/#jqXHR})
          * @param {integer} gistId
          * @param {object} options Additional options used when retrieving comments
          * @param {integer} [options.commentId] The Id of a specific comment that should be returned.
@@ -150,10 +165,15 @@ var GitJs = (function ($) {
             }
             this.generateApiRequest(apiCommand).send(callback);
         },
+
         /**
          * Get a list of repos related to a user.
          *
+         * @public
          * @param {Function(data, textStatus, jqXhr)} callback
+         * @param {object} callback.data A JSON object containing the response from the server.
+         * @param {object} callback.text The text response from the server.
+         * @param {object} callback.jqXhr jqXR object ({@link http://api.jquery.com/types/#jqXHR})
          * @param {string=} [username] What user the repos should belong to. If not specified,
          *   repo date for the currently logged in user is returned.
          * @param {object} options
@@ -184,7 +204,11 @@ var GitJs = (function ($) {
         /**
          * Gets information about respos belonging to a particular organization.
          *
+         * @public
          * @param {Function(data, textStatus, jqXhr)} callback
+         * @param {object} callback.data A JSON object containing the response from the server.
+         * @param {object} callback.text The text response from the server.
+         * @param {object} callback.jqXhr jqXR object ({@link http://api.jquery.com/types/#jqXHR})
          * @param {string} organization
          * @param {object} options
          * @param {string} [options.type] The type of data about a repo to return (e.g., 'public'). See API documention for a list of possible values.
@@ -209,7 +233,11 @@ var GitJs = (function ($) {
         /**
          * Gets a list of issues associated with the currently logged in user
          *
+         * @public
          * @param {Function(data, textStatus, jqXhr)} callback
+         * @param {object} callback.data A JSON object containing the response from the server.
+         * @param {object} callback.text The text response from the server.
+         * @param {object} callback.jqXhr jqXR object ({@link http://api.jquery.com/types/#jqXHR})
          * @param {object} [options]
          * @param {string} [options.filter] What kinds of issues to show (e.g., 'created' only shows issues created by you).
          * @param {string} [options.state] What state the issues should be in (e.g., 'open').
@@ -239,6 +267,18 @@ var GitJs = (function ($) {
                 since: since
             }, 'GET').send(callback);
         },
+
+        /**
+         * Get information regarding a specific issue.
+         *
+         * @param {Function(data, textStatus, jqXhr)} callback
+         * @param {object} callback.data A JSON object containing the response from the server.
+         * @param {object} callback.text The text response from the server.
+         * @param {object} callback.jqXhr jqXR object ({@link http://api.jquery.com/types/#jqXHR})
+         * @param {string} user The user that the issue should belong to.
+         * @param {string} repo The repo that the issue should belong to.
+         * @param {issueNumber} issueNumber The issue number.
+         */
         getIssue: function (callback, user, repo, issueNumber) {
             this.generateApiRequest('/repos/' + user + '/' + repo + '/issues/' + issueNumber).send(callback);
         },
@@ -287,7 +327,11 @@ var GitJs = (function ($) {
         /**
          * Creates a comment on a gist.
          *
+         * @public
          * @param {function(data, textStatus, jqXhr)} callback
+         * @param {object} callback.data A JSON object containing the response from the server.
+         * @param {object} callback.text The text response from the server.
+         * @param {object} callback.jqXhr jqXR object ({@link http://api.jquery.com/types/#jqXHR})
          * @param {integer} gistId The Id of the gist that the comment should belong to.
          * @param {string} comment
          */
@@ -309,14 +353,20 @@ var GitJs = (function ($) {
         },
 
         /**
+         * Creates a tree
+         *
+         * @public
          * @param {function(data, textStatus, jqXhr)} callback
+         * @param {object} callback.data A JSON object containing the response from the server.
+         * @param {object} callback.text The text response from the server.
+         * @param {object} callback.jqXhr jqXR object ({@link http://api.jquery.com/types/#jqXHR})
          * @param {string} user The user the tree belongs to.
          * @param {string} repo The repo the tree belongs to.
          * @param {object} options
          * @param {object[]} options.trees Array of Hash objects (of path, mode, type and sha) specifying a tree structure.
          *   See API documentation for hash properties.
          */
-        createTree: function(callback, user, repo, options) {
+        createTree: function (callback, user, repo, options) {
             var apiCommand = '/repos/' + user + '/' + repo + '/git/trees',
                 baseTree = options.baseTree,
                 trees = options.tree;
