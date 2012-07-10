@@ -377,6 +377,18 @@ var GitJs = (function ($) {
             }).send(callback);
         },
 
+        /**
+         * Get info about a particular tag.
+         *
+         * @public
+         * @param {function(data, textStatus, jqXhr)} callback
+         * @param {object} callback.data A JSON object containing the response from the server.
+         * @param {object} callback.text The text response from the server.
+         * @param {object} callback.jqXhr jqXR object ({@link http://api.jquery.com/types/#jqXHR})
+         * @param {string} user The user the tag belongs to.
+         * @param {string} repo The repo the tag belongs to.
+         * @param {string} sha The SHA of the tag.
+         */
         getTagInfo: function (callback, user, repo, sha) {
             var apiCommand = '/repos/' + user + '/' + repo + '/git/tags/' + sha;
 
