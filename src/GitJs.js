@@ -395,7 +395,7 @@ var GitJs = (function ($) {
             this.generateApiRequest(apiCommand).send(callback);
         },
 
-        createTag: function(callback, user, repo, options) {
+        createTag: function (callback, user, repo, options) {
             var apiCommand = '/repos/' + user + '/' + repo + '/git/tags',
                 tags = options.tags,
                 message = options.message,
@@ -413,6 +413,12 @@ var GitJs = (function ($) {
                 'tagger.email': taggerEmail,
                 'tagger.date': taggerDate
             }).send(callback);
+        },
+
+        getBlobInfo: function (callback, user, repo, sha) {
+            var apiCommand = '/repos/' + user + '/' + repo + 'git/blobs/' + sha;
+
+            this.generateApiRequest(apiCommand).send(callback);
         }
     };
 
