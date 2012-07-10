@@ -431,6 +431,12 @@ var GitJs = (function ($) {
                 content: content,
                 encoding: encoding
             }, 'POST').send(callback);
+        },
+
+        getCommitInfo: function (callback, user, repo, sha) {
+            var apiCommand = '/repos/' + user + '/' + repo + '/commits/' + sha;
+
+            this.generateApiRequest(apiCommand).send(callback);
         }
     };
 
