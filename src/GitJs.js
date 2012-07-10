@@ -419,6 +419,18 @@ var GitJs = (function ($) {
             var apiCommand = '/repos/' + user + '/' + repo + 'git/blobs/' + sha;
 
             this.generateApiRequest(apiCommand).send(callback);
+        },
+
+        createBlob: function (callback, user, repo, options) {
+            options = options || {};
+
+            var apiCommand = '/repos/' + user + '/' + repo + '/git/blobs',
+                content = options.content,
+                encoding = options.encoding || 'UTF-8';
+            this.generateApiRequest(apiCommand, {
+                content: content,
+                encoding: encoding
+            }, 'POST').send(callback);
         }
     };
 
