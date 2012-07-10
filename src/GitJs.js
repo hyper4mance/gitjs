@@ -381,8 +381,27 @@ var GitJs = (function ($) {
             var apiCommand = '/repos/' + user + '/' + repo + '/git/tags/' + sha;
 
             this.generateApiRequest(apiCommand).send(callback);
-        }
+        },
 
+        createTag: function(callback, user, repo, options) {
+            var apiCommand = '/repos/' + user + '/' + repo + '/git/tags',
+                tags = options.tags,
+                message = options.message,
+                object = options.object,
+                tagger = options.tagger || {},
+                taggerName = tagger.name,
+                taggerEmail = tagger.email,
+                taggerDate = tagger.date;
+
+            this.generateApiRequest(apiCommand, {
+                tags: tags,
+                message: message,
+                object: object,
+                'tagger.name': taggerName,
+                'tagger.email': taggerEmail,
+                'tagger.date': taggerDate
+            }).send(callback);
+        }
     };
 
     return G;
