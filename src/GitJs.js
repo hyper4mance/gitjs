@@ -488,7 +488,7 @@ var GitJs = (function ($) {
             }, 'POST').send(callback);
         },
 
-        deleteReference: function(callback, user, repo, reference) {
+        deleteReference: function (callback, user, repo, reference) {
             var apiCommand = '/repos/' + user + '/' + repo + '/git/refs/' + reference;
 
             this.generateApiRequest(apiCommand, {}, 'POST').send(callback);
