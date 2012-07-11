@@ -1,0 +1,95 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Bootstrap, from Twitter</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+        <style>
+            body {
+                padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+            }
+        </style>
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container-fluid">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="#">GitJs</a>
+                    <div class="btn-group pull-right">
+                        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                            <i class="icon-user"></i>
+                            Username
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Configure App</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">Sign Out</a></li>
+                        </ul>
+                    </div>
+                    <div class="nav-collapse">
+                        <ul class="nav">
+                            <li class="active"><a href="#">Home</a></li>
+                            <li class="dropdown" id="menu1">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#menu1">
+                                    Get Started
+                                    <b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href = "#">Initialization</a></li>
+                                    <li><a href = "#">Callbacks</a></li>
+                                    <li><a href = "#">Authentication</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+
+            <h1>Bootstrap starter template</h1>
+            <p>Use this document as a way to quick start any new project.<br> All you get is this message and a barebones HTML document.</p>
+
+        </div>
+        <form class="well">
+            <label>Client ID:</label>
+            <input type = "text" class = "span3" name = "client_id">
+            <label>App Secret:</label>
+            <input type = "text" class="span3" name = "app_secret">
+            <span class = "help-inline">Or:</span>
+            <label>Access Token:</label>
+            <input type = "text" class="span3">
+            <span class = "help-block">This application can:</span>
+            <label class = "checkbox">
+                <input type = "checkbox" value = "user" name = "scope[]">Read/Write to My Profile
+            </label>
+            <label class = "checkbox">
+                <input type = "checkbox" value = "public_repo" name = "scope[]">Read/Write to My Public Repos and Organizations
+            </label>
+            <label class = "checkbox">
+                <input type = "checkbox" value = "repo" name = "scope[]">Read/Write to My Public &amp; Private Repos and Organizations
+            </label>
+            <label class = "checkbox">
+                <input type = "checkbox" value = "gist" name = "scope[]">Create Gists
+            </label>
+            <button type="submit" class="btn">Submit</button>
+        </form>
+        <!--[if lt IE 9]> <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+        <script src="assets/js/bootstrap.min.js"></script>
+
+    </body>
+</html>
