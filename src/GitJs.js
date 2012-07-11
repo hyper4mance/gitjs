@@ -462,7 +462,7 @@ var GitJs = (function ($) {
             this.generateApiRequest(apiCommand, {
                 ref: ref,
                 sha: sha
-            }).send(callback);
+            }, 'POST').send(callback);
         }
     };
 
