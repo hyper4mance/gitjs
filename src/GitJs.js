@@ -439,6 +439,29 @@ var GitJs = (function ($) {
             this.generateApiRequest(apiCommand).send(callback);
         },
 
+        createCommit: function (callback, user, repo, options) {
+            var apiCommand = '/repos/' + user + '/' + repo + '/git/commits',
+                message = options.message,
+                tree = options.tree,
+                parents = options.parents,
+                author = options.author,
+                committer = options.committer,
+                data = {
+                    message: message,
+                    tree: tree,
+                    parents: parents
+                };
+
+            if (committer !== undefined && typeof committer === 'object') {
+                data.committer = committer;
+            }
+            if (author !== undefined && typeof author === 'object') {
+                data.author = author;
+            }
+
+            this.generateApiRequest(apiCommand, data, 'POST').send(callback);
+        },
+
         getReferenceInfo: function (callback, user, repo, options) {
             options = options || {};
             var apiCommand = '/repos/' + user + '/' + repo + '/git/refs/',
