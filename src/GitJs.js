@@ -437,6 +437,21 @@ var GitJs = (function ($) {
             var apiCommand = '/repos/' + user + '/' + repo + '/commits/' + sha;
 
             this.generateApiRequest(apiCommand).send(callback);
+        },
+
+        getReferenceInfo: function (callback, user, repo, options) {
+            options = options || {};
+            var apiCommand = '/repos/' + user + '/' + repo + '/git/refs/',
+                reference = options.reference,
+                getByTag = options.getByTag || false;
+
+            if (reference) {
+                apiCommand += reference;
+            } else if (getByTag === true) {
+                apiCommand += 'tag';
+            }
+
+            this.generateApiRequest(apiCommand).send(callback);
         }
     };
 
