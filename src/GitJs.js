@@ -452,6 +452,17 @@ var GitJs = (function ($) {
             }
 
             this.generateApiRequest(apiCommand).send(callback);
+        },
+
+        createReference: function (callback, user, repo, options) {
+            var apiCommand = '/repos/' + user + '/' + repo + '/git/refs',
+                ref = options.ref,
+                sha = options.sha;
+
+            this.generateApiRequest(apiCommand, {
+                ref: ref,
+                sha: sha
+            }).send(callback);
         }
     };
 
