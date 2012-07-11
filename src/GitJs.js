@@ -400,18 +400,13 @@ var GitJs = (function ($) {
                 tags = options.tags,
                 message = options.message,
                 object = options.object,
-                tagger = options.tagger || {},
-                taggerName = tagger.name,
-                taggerEmail = tagger.email,
-                taggerDate = tagger.date;
+                tagger = options.tagger;
 
             this.generateApiRequest(apiCommand, {
                 tags: tags,
                 message: message,
                 object: object,
-                'tagger.name': taggerName,
-                'tagger.email': taggerEmail,
-                'tagger.date': taggerDate
+                tagger: tagger
             }).send(callback);
         },
 
