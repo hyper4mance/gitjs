@@ -15,8 +15,7 @@
                 inheriting: false,
                 clientId: undefined,
                 accessToken: undefined,
-                baseUrl: 'https://api.github.com',
-                mode: 'read'
+                baseUrl: 'https://api.github.com'
             };
             assert.equals(this.gitjs.config, configDefaults);
         },
@@ -31,8 +30,7 @@
                 inheriting: true,
                 clientId: '123',
                 accessToken: '456',
-                baseUrl: 'https://www.cnn.com',
-                mode: 'write'
+                baseUrl: 'https://www.cnn.com'
             };
 
             this.gitjs = new GitJs(expectedConfig);
