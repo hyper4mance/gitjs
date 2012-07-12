@@ -1,5 +1,5 @@
 /*
- * @license Permission is hereby granted, free of charge, to any person
+ * Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation files
  * (the "Software"), to deal in the Software without restriction, including
  * without limitation the rights to use, copy, modify, merge, publish,
@@ -20,7 +20,13 @@
  */
 
 /**
- * @module GitJs
+ * GitJS is a JavaScript library for interacting with the version 3
+ *   of the Github API.
+ *
+ * @overview
+ * @author Levi Hackwith
+ * @version 1.0
+ * @copyright 2012 Levi Hackwith
  */
 
 var GitJs = (function ($) {
@@ -30,8 +36,7 @@ var GitJs = (function ($) {
      * Constructor
      *
      * @public
-     * @constructor
-     * @alias module:GitJs
+     * @constructs GitJs
      * @param {object} config
      * @param {boolean} [config.inheriting=false] Whether or not the constructor is being
      *   called as part of the prototype for another object.
@@ -54,7 +59,6 @@ var GitJs = (function ($) {
     /**
      * Gets the jQuery method that GitJs#generateApiRequest is going to use to send the ajax request.
      *
-     * @scope GitJs
      * @private
      * @param {string} httpVerb The HTTP verb that the request will use,
      * @return string
