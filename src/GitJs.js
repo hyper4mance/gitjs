@@ -95,6 +95,11 @@ var GitJs = (function ($) {
          * @param {object} [data] An object literal of command parameters to send along with the API request.
          * @param {string} [httpVerb=GET] The HTTP verb used to send the request. Defaults to 'GET'.
          * @param {string} [dataType=jsonp] The data type that the Github API will send its response in. Defaults to 'jsonp'
+         * @example
+         *     var GitJs = new GitJs(configObject),
+         *         requestData = {};
+         *
+         *     GitJs.generateApiRequest('/user/opnsrce/repos', requestData, 'GET', 'jsonp').send(myCallback);
          */
         generateApiRequest: function (apiCommand, data, httpVerb, dataType) {
             var commandMethod,
