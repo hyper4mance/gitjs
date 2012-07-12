@@ -13,6 +13,7 @@ config['GitJs Tests'] = {
         'test/test_constructor.js',
         'test/test_generateApiRequest.js',
         'test/test_generateAuthorizationLink.js',
-        'test/test_getReposByOrgMethod.js'
+        'test/test_getReposByOrg.js',
+        'test/test_getGistComments.js'
     ]
 };
