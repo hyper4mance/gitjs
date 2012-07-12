@@ -271,6 +271,7 @@ var GitJs = (function ($) {
         /**
          * Get information regarding a specific issue.
          *
+         * @public
          * @param {Function(data, textStatus, jqXhr)} callback
          * @param {object} callback.data A JSON object containing the response from the server.
          * @param {object} callback.text The text response from the server.
@@ -283,6 +284,23 @@ var GitJs = (function ($) {
             this.generateApiRequest('/repos/' + user + '/' + repo + '/issues/' + issueNumber).send(callback);
         },
 
+        /**
+         * Create a new issue against a repository.
+         *
+         * @public
+         * @param {Function(data, textStatus, jqXhr)} callback
+         * @param {object} callback.data A JSON object containing the response from the server.
+         * @param {object} callback.text The text response from the server.
+         * @param {object} callback.jqXhr jqXR object ({@link http://api.jquery.com/types/#jqXHR})
+         * @param {string} user The user that the issue should belong to.
+         * @param {string} repo The repo that the issue should belong to.
+         * @param {object} options
+         * @param {string} options.title The title of the issue.
+         * @param {string} [options.body] The body of the issue.
+         * @param {string} [options.assignee] The Login for the user that this issue should be assigned to.
+         * @param {string} [options.milestone] The milestone to associate this issue with.
+         * @param {string[]} [options.labels] An array of labels to associate with this issue.
+         */
         createIssue: function (callback, user, repo, options) {
             options = options || {};
 
