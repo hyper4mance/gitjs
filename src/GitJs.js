@@ -48,6 +48,12 @@ var GitJs = (function ($) {
         if (config === undefined) {
             config = {};
         }
+
+        /**
+         * Stores the configuration object passed into the constructor.
+         *
+         * @type Object
+         */
         this.config = {
             inheriting: config.inheriting || false,
             clientId: config.clientId,
@@ -60,8 +66,9 @@ var GitJs = (function ($) {
      * Gets the jQuery method that GitJs#generateApiRequest is going to use to send the ajax request.
      *
      * @private
+     * @scope GitJs
      * @param {string} httpVerb The HTTP verb that the request will use,
-     * @return string
+     * @return function
      */
     function getCommandMethod(httpVerb) {
         var method = $.get;
