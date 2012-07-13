@@ -30,13 +30,39 @@
 
 
         "test getGistComments method with minimal options": function () {
-            this.gitjs.getGistComments(function () {}, 500);
+            var gistId = 500;
+
+            this.gitjs.getGistComments(function () {}, gistId);
             assert.isObject(this.apiRequest);
             assert(this.gitjs.sendApiRequestCalled);
-            assert.equals('https://api.github.com/gists/500/comments', this.apiRequest.url);
+            assert.equals('https://api.github.com/gists/' + gistId + '/comments', this.apiRequest.url);
             assert.equals('jsonp', this.apiRequest.dataType);
             assert.equals('GET', this.apiRequest.httpVerb);
             refute.defined(this.apiRequest.data.commentId);
-        }
+        },
+
+        "test getGistComments with all commentId": function() {
+            var commentId = 1234;
+
+            this.gitjs.getGistComments(function () {}, undefined, {commentId: commentId});
+            assert.isObject(this.apiRequest);
+            assert(this.gitjs.sendApiRequestCalled);
+            assert.equals('https://api.github.com/gists/comments/' + commentId, this.apiRequest.url);
+            assert.equals('jsonp', this.apiRequest.dataType);
+            assert.equals('GET', this.apiRequest.httpVerb);
+            refute.defined(this.apiRequest.data.commentId);
+        },
+
+        "test getGistComments method with invalid comment ID": function () {
+            var gistId = 500,
+                commentId = 'badValue';
+            this.gitjs.getGistComments(function () {}, gistId, {commentId: commentId});
+            assert.isObject(this.apiRequest);
+            assert(this.gitjs.sendApiRequestCalled);
+            assert.equals('https://api.github.com/gists/' + gistId + '/comments', this.apiRequest.url);
+            assert.equals('jsonp', this.apiRequest.dataType);
+            assert.equals('GET', this.apiRequest.httpVerb);
+            refute.defined(this.apiRequest.data.commentId);
+        },
     });
 }(GitJs));
