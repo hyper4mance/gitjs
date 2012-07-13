@@ -177,7 +177,7 @@ var GitJs = (function ($) {
             if (commentId === undefined || isNaN(commentId) === true) {
                 apiCommand = '/gists/' + gistId + '/comments';
             } else {
-                apiCommand = '/gits/comments/' + options.commentId;
+                apiCommand = '/gists/comments/' + options.commentId;
             }
             this.generateApiRequest(apiCommand).send(callback);
         },
