@@ -190,7 +190,7 @@ var GitJs = (function ($) {
          * @param {object} callback.data A JSON object containing the response from the server.
          * @param {object} callback.text The text response from the server.
          * @param {object} callback.jqXhr jqXR object ({@link http://api.jquery.com/types/#jqXHR})
-         * @param {string=} [username] What user the repos should belong to. If not specified,
+         * @param {string} [username] What user the repos should belong to. If not specified,
          *   repo date for the currently logged in user is returned.
          * @param {object} options
          * @param {string} [options.type] The type of data about a repo to return (e.g., 'public').
