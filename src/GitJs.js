@@ -33,7 +33,7 @@ var GitJs = (function ($) {
     'use strict';
 
     /**
-     * Constructor
+     * Class constructor.
      *
      * @public
      * @constructs GitJs
@@ -247,7 +247,7 @@ var GitJs = (function ($) {
         },
 
         /**
-         * Gets a list of issues associated with the currently logged in user
+         * Gets a list of issues associated with the currently logged in user.
          *
          * @public
          * @param {Function(data, textStatus, jqXhr)} callback
@@ -378,7 +378,7 @@ var GitJs = (function ($) {
         },
 
         /**
-         * Gets a tree
+         * Gets a tree.
          *
          * @public
          * @param {function(data, textStatus, jqXhr)} callback
@@ -401,7 +401,7 @@ var GitJs = (function ($) {
         },
 
         /**
-         * Creates a tree
+         * Creates a tree.
          *
          * @public
          * @param {function(data, textStatus, jqXhr)} callback
