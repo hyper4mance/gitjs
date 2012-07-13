@@ -1321,7 +1321,7 @@
 	
 	
 	<dt class="tag-source">Source:</dt>
-	<dd class="tag-source"><ul class="dummy"><li>GitJs.js, line 403</li></ul></dd>
+	<dd class="tag-source"><ul class="dummy"><li>GitJs.js, line 417</li></ul></dd>
 	
     
     
@@ -1564,7 +1564,7 @@
         <h5>Example</h5>
         
     <pre class="sh_javascript"><code>    var GitJs = new GitJs(configObject),
-        requestData = {}
+        requestData = {};
 
     GitJs.generateApiRequest('/user/opnsrce/repos', requestData, 'GET', 'jsonp').send(myCallback);</code></pre>
 
@@ -3735,7 +3735,342 @@
 	
 	
 	<dt class="tag-source">Source:</dt>
-	<dd class="tag-source"><ul class="dummy"><li>GitJs.js, line 426</li></ul></dd>
+	<dd class="tag-source"><ul class="dummy"><li>GitJs.js, line 440</li></ul></dd>
+	
+    
+    
+	
+	
+	
+	
+</dl>
+
+    
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="getTree"><span class="type-signature"></span>getTree</h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Gets a tree
+    </div>
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		<th>Argument</th>
+		
+		
+		
+		<th>Default</th>
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+            
+            <td class="type">
+            
+                        function(data, textStatus, jqXhr)
+                        
+                    
+            </td>
+            
+            
+                <td class="attributes">
+                
+                    
+                
+                </td>
+            
+            
+            
+                <td class="default">
+                
+                </td>
+            
+            
+            <td class="description last">
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>data</code></td>
+            
+            
+            <td class="type">
+            
+                        object
+                        
+                    
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">A JSON object containing the response from the server.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>text</code></td>
+            
+            
+            <td class="type">
+            
+                        object
+                        
+                    
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">The text response from the server.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>jqXhr</code></td>
+            
+            
+            <td class="type">
+            
+                        object
+                        
+                    
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">jqXR object (<a href="http://api.jquery.com/types/#jqXHR">http://api.jquery.com/types/#jqXHR</a>)</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+            </td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>user</code></td>
+            
+            
+            <td class="type">
+            
+                        string
+                        
+                    
+            </td>
+            
+            
+                <td class="attributes">
+                
+                    
+                
+                </td>
+            
+            
+            
+                <td class="default">
+                
+                </td>
+            
+            
+            <td class="description last">The user the tree data should belong to.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>repo</code></td>
+            
+            
+            <td class="type">
+            
+                        string
+                        
+                    
+            </td>
+            
+            
+                <td class="attributes">
+                
+                    
+                
+                </td>
+            
+            
+            
+                <td class="default">
+                
+                </td>
+            
+            
+            <td class="description last">The repo the tree data should belong to.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>sha</code></td>
+            
+            
+            <td class="type">
+            
+                        string
+                        
+                    
+            </td>
+            
+            
+                <td class="attributes">
+                
+                    
+                
+                </td>
+            
+            
+            
+                <td class="default">
+                
+                </td>
+            
+            
+            <td class="description last">The sha the tree data should belong to.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>recursive</code></td>
+            
+            
+            <td class="type">
+            
+                        boolean
+                        
+                    
+            </td>
+            
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+                    
+                
+                </td>
+            
+            
+            
+                <td class="default">
+                
+                    false
+                
+                </td>
+            
+            
+            <td class="description last">If true, the tree's data will be retrieved recursively.</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<dt class="tag-source">Source:</dt>
+	<dd class="tag-source"><ul class="dummy"><li>GitJs.js, line 393</li></ul></dd>
 	
     
     
@@ -3777,7 +4112,7 @@
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3</a> on Wed Jul 11 2012 21:52:47 GMT-0500 (CDT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3</a> on Thu Jul 12 2012 19:54:15 GMT-0500 (CDT)
 </footer>
 
 <script> sh_highlightDocument(); </script>

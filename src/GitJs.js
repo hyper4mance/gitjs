@@ -377,7 +377,21 @@ var GitJs = (function ($) {
             }).send(callback);
         },
 
+        /**
+         * Gets a tree
+         *
+         * @public
+         * @param {function(data, textStatus, jqXhr)} callback
+         * @param {object} callback.data A JSON object containing the response from the server.
+         * @param {object} callback.text The text response from the server.
+         * @param {object} callback.jqXhr jqXR object ({@link http://api.jquery.com/types/#jqXHR})
+         * @param {string} user The user the tree data should belong to.
+         * @param {string} repo The repo the tree data should belong to.
+         * @param {string} sha The sha the tree data should belong to.
+         * @param {boolean} [recursive=false] If true, the tree's data will be retrieved recursively.
+         */
         getTree: function (callback, user, repo, sha, recursive) {
+            recursive = recursive || false
             var apiCommand = '/repos/' + user + '/' + repo + '/' + sha;
 
             if (recursive === true) {
