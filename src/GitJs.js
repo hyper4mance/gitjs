@@ -155,6 +155,20 @@ var GitJs = (function ($) {
         },
 
         /**
+         * Authenticates a user with the Github API using the access token passed into the constructor config.
+         *
+         * @public
+         * @param {Function(data, textStatus, jqXhr)} callback
+         * @param {object} callback.data A JSON object containing the response from the server.
+         * @param {object} callback.text The text response from the server.
+         * @param {object} callback.jqXhr jqXR object ({@link http://api.jquery.com/types/#jqXHR})
+         */
+        authenticateUser: function (callback) {
+            this.generateApiRequest('/user', {
+                access_token: this.config.accessToken
+            }).send(callback);
+        },
+        /**
          * Get comments for a specific gist.
          *
          * @public
@@ -205,6 +219,7 @@ var GitJs = (function ($) {
                 type = options.type,
                 sort = options.sort,
                 direction = options.direction;
+
             if (username !== undefined) {
                 apiCommand = '/users/' + username + '/repos';
             } else {
@@ -391,7 +406,8 @@ var GitJs = (function ($) {
          * @param {boolean} [recursive=false] If true, the tree's data will be retrieved recursively.
          */
         getTree: function (callback, user, repo, sha, recursive) {
-            recursive = recursive || false
+            recursive = recursive || false;
+
             var apiCommand = '/repos/' + user + '/' + repo + '/' + sha;
 
             if (recursive === true) {
@@ -470,6 +486,7 @@ var GitJs = (function ($) {
             var apiCommand = '/repos/' + user + '/' + repo + '/git/blobs',
                 content = options.content,
                 encoding = options.encoding || 'UTF-8';
+
             this.generateApiRequest(apiCommand, {
                 content: content,
                 encoding: encoding
@@ -507,6 +524,7 @@ var GitJs = (function ($) {
 
         getReferenceInfo: function (callback, user, repo, options) {
             options = options || {};
+
             var apiCommand = '/repos/' + user + '/' + repo + '/git/refs/',
                 reference = options.reference,
                 getByTag = options.getByTag || false;
