@@ -104,7 +104,6 @@ var GitJs = (function ($) {
         generateApiRequest: function (apiCommand, data, httpVerb, dataType) {
             var commandMethod,
                 apiRequest,
-                requestSendMethod,
                 me = this;
 
             httpVerb = httpVerb || 'GET';
@@ -121,7 +120,7 @@ var GitJs = (function ($) {
                 dataType: dataType,
                 httpVerb: httpVerb,
                 send: function (callback) {
-                    commandMethod.call(me, this.url, this.data, callback);
+                    commandMethod.call(me, this.url, this.data, callback, dataType);
                     return apiRequest;
                 }
             };
@@ -168,6 +167,7 @@ var GitJs = (function ($) {
                 access_token: this.config.accessToken
             }).send(callback);
         },
+
         /**
          * Get comments for a specific gist.
          *
