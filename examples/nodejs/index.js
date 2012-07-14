@@ -1,3 +1,8 @@
-var server = require("./server");
+var server = require("./server"),
+    router = require("./router"),
+    requestHandlers = require("./requestHandlers"),
+    handle = {};
 
-server.start();
+handle["/getToken"] = requestHandlers.getToken;
+
+server.start(router.route, handle);
