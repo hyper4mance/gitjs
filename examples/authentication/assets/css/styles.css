@@ -1,3 +1,10 @@
 #username {
     margin-bottom: 5px;
 }
+
+#user_info p {
+    font-weight: bold;
+}
+#user_info p > span {
+    font-weight: normal;
+}
