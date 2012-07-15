@@ -7,6 +7,7 @@ function showUserInfo(userObject) {
         blog = userInfo.find('#blog'),
         userData = userObject.data;
 
+    userInfo.show('explode', 500);
     avatar.attr('src', 'http://www.gravatar.com/avatar/' + userData.gravatar_id + '?s=260');
     email.html(userData.email);
     blog.html(userData.blog);
