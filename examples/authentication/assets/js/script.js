@@ -1,16 +1,3 @@
-$(document).ready(function () {
-    'use strict';
-    $('form').bind('submit', function () {
-        var gitJs = new GitJs({
-            accessToken: $('input[name=access_token]').val()
-        });
-        gitJs.authenticateUser(function (data, text, jqXhr) {
-            showUserInfo(data);
-        });
-        return false;
-    });
-});
-
 function showUserInfo(userObject) {
     'use strict';
     var userInfo = $('#user_info'),
@@ -25,3 +12,16 @@ function showUserInfo(userObject) {
     blog.html(userData.blog);
     username.html(userData.login);
 }
+
+$(document).ready(function () {
+    'use strict';
+    $('form').bind('submit', function () {
+        var gitJs = new GitJs({
+            accessToken: $('input[name=access_token]').val()
+        });
+        gitJs.authenticateUser(function (data, text, jqXhr) {
+            showUserInfo(data);
+        });
+        return false;
+    });
+});
