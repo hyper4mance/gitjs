@@ -64,8 +64,13 @@
 
         <div class="container">
 
-            <h1>Bootstrap starter template</h1>
-            <p>Use this document as a way to quick start any new project.<br> All you get is this message and a barebones HTML document.</p>
+            <h1>Authentication Example</h1>
+            <p>
+                The page demonstrates how to register and authenticate a user
+                with your Github application. To begin, simply select the level
+                of access you want the application to have to your profile and
+                click the "Login" Button.
+            </p>
             <form action = "" method = "post" class="well" style ="float: left; margin-right: 10px">
                 <label>Client ID:</label>
                 <input type = "text" class = "span3" name = "client_id">
@@ -76,7 +81,7 @@
                 <input type = "text" class="span3" name ="access_token" value = "c14258733e5f67a0d8ca9efc07f889d894e9fe99">
                 <span class = "help-block">This application can:</span>
                 <label class = "checkbox">
-                    <input type = "checkbox" value = "readonly" name = "scope[]">Only Read My Profile
+                    <input type = "checkbox" value = "readonly" name = "scope[]" checked ="checked">Only Read My Profile
                 </label>
                 <label class = "checkbox">
                     <input type = "checkbox" value = "user" name = "scope[]">Read/Write to My Profile
