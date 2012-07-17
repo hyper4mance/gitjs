@@ -2,7 +2,7 @@ var http = require('https'),
     url = require('url'),
     queryString = require('querystring');
 
-function getToken(request) {
+function getToken(request, response) {
     'use strict';
 
     var parsedUrl = url.parse(request.url, true),
@@ -51,4 +51,15 @@ function getToken(request) {
     req.end();
 }
 
+function checkStatus(request, response) {
+    'use strict';
+    var parsedUrl = url.parse(request.url, true),
+        callback = parsedUrl.query.callback;
+    response.writeHead(200, {
+        'content-type': 'text/javascript'
+    });
+    response.end(callback + '()');
+}
+
 exports.getToken = getToken;
+exports.checkStatus = checkStatus;

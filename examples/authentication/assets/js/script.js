@@ -29,30 +29,44 @@ function generateScopeString() {
     return scopes.join(',');
 }
 
-function checkServerStatus(callback) {
+function success(data, text, jqXhr) {
     'use strict';
+
     var warningLabel = $('div.alert-error'),
         successLabel = $('div.alert-success'),
         loginButton = $('button');
-    $.ajax({
-        url: 'http://localhost:8888',
+
+    if (warningLabel.is(':visible') === true) {
+        warningLabel.fadeOut(500, function () {
+            successLabel.fadeIn(500);
+        });
+        loginButton.removeAttr('disabled');
+    }
+}
+
+function error(jqXhr, status, errorThrown) {
+    'use strict';
+
+    var warningLabel = $('div.alert-error'),
+        successLabel = $('div.alert-success'),
+        loginButton = $('button');
+
+    if (warningLabel.is(':visible') === false) {
+        warningLabel.fadeIn(500);
+    } else {
+        warningLabel.effect('pulsate', {times: 3}, 1000);
+    }
+    loginButton.attr('disabled', 'disabled');
+}
+function checkServerStatus(callback) {
+    'use strict';
+
+    var req = $.ajax({
+        url: 'http://localhost:8888/checkStatus',
         dataType: 'jsonp',
-        success: function (data, text, jqXhr) {
-            if (warningLabel.is(':visible') === true) {
-                warningLabel.fadeOut(500);
-                successLabel.fadeIn(500);
-                loginButton.removeAttribute('disabled');
-                callback();
-            }
-        },
-        error: function (jqXhr, status, errorThrown) {
-            if (warningLabel.is(':visible') === false) {
-                warningLabel.fadeIn(500);
-            } else {
-                warningLabel.pulsate({times: 3}, 2000);
-            }
-            loginButton.attr('disabled', 'disabled');
-        }
+        timeout: 500,
+        jsonpCallback: 'success',
+        error: error
     });
 }
 
@@ -60,8 +74,11 @@ $(document).ready(function () {
     'use strict';
     $('div.alert-success').hide();
     $('div.alert-error').hide();
-    checkServerStatus(function () {
-        $('#login_button').enable();
+
+    checkServerStatus();
+    $('#check_server_status_link').click(function(e) {
+        checkServerStatus();
+        return false;
     });
     $('form').bind('submit', function () {
         var accessToken = $('#access_token').val(),
@@ -70,17 +87,7 @@ $(document).ready(function () {
             gitJs = new GitJs({clientId: clientId}),
             scope = generateScopeString();
 
-        checkServerStatus(function () {
-            if (accessToken) {
-                gitJs.authenticateUser(function (data, text, jqXhr) {
-                    showUserInfo(data);
-                }, accessToken);
-            } else {
-                window.open(gitJs.generateAuthorizationLink(clientId, {
-                    scope: scope || undefined
-                }));
-            }
-        });
+        checkServerStatus();
 
         return false;
     });

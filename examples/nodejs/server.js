@@ -6,10 +6,7 @@ function start(route, handle) {
         var requestUrl = url.parse(request.url, true),
             pathname = requestUrl.pathname;
 
-        route(handle, pathname, request);
-        response.writeHead(200, {
-            "Content-Type": "text/plain"
-        });
+        route(handle, pathname, request, response);
         response.end();
     }
 

@@ -4,5 +4,6 @@ var server = require("./server"),
     handle = {};
 
 handle["/getToken"] = requestHandlers.getToken;
+handle["/checkStatus"] = requestHandlers.checkStatus;
 
 server.start(router.route, handle);
