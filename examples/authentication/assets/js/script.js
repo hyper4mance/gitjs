@@ -32,13 +32,16 @@ function generateScopeString() {
 function checkServerStatus(callback) {
     'use strict';
     var warningLabel = $('div.alert-error'),
+        successLabel = $('div.alert-success'),
         loginButton = $('button');
     $.ajax({
         url: 'http://localhost:8888',
+        dataType: 'jsonp',
         success: function (data, text, jqXhr) {
             if (warningLabel.is(':visible') === true) {
                 warningLabel.fadeOut(500);
-                loginButton.enable();
+                successLabel.fadeIn(500);
+                loginButton.removeAttribute('disabled');
                 callback();
             }
         },
@@ -48,14 +51,18 @@ function checkServerStatus(callback) {
             } else {
                 warningLabel.pulsate({times: 3}, 2000);
             }
-            loginButton.disable();
+            loginButton.attr('disabled', 'disabled');
         }
     });
 }
 
 $(document).ready(function () {
     'use strict';
-
+    $('div.alert-success').hide();
+    $('div.alert-error').hide();
+    checkServerStatus(function () {
+        $('#login_button').enable();
+    });
     $('form').bind('submit', function () {
         var accessToken = $('#access_token').val(),
             clientId = '9161914a06ffaf898a7e',
