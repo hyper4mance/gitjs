@@ -154,17 +154,20 @@ var GitJs = (function ($) {
         },
 
         /**
-         * Authenticates a user with the Github API using the access token passed into the constructor config.
+         * Authenticates a user with the Github API.
          *
          * @public
          * @param {Function(data, textStatus, jqXhr)} callback
          * @param {object} callback.data A JSON object containing the response from the server.
          * @param {object} callback.text The text response from the server.
          * @param {object} callback.jqXhr jqXR object ({@link http://api.jquery.com/types/#jqXHR})
+         * @param {string} [accessToken] The access token to log the user in with. If not provided, the access token
+         *   from the constructor's config object will be used.
          */
-        authenticateUser: function (callback) {
+        authenticateUser: function (callback, accessToken) {
+            accessToken = accessToken || this.config.accessToken;
             this.generateApiRequest('/user', {
-                access_token: this.config.accessToken
+                access_token: accessToken
             }).send(callback);
         },
 
