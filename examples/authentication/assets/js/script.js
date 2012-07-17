@@ -40,8 +40,8 @@ function success(data, text, jqXhr) {
         warningLabel.fadeOut(500, function () {
             successLabel.fadeIn(500);
         });
-        loginButton.removeAttr('disabled');
     }
+    loginButton.removeAttr('disabled');
 }
 
 function error(jqXhr, status, errorThrown) {
