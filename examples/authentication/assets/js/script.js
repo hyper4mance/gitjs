@@ -77,7 +77,7 @@ $(document).ready(function () {
     $('div.alert-error').hide();
 
     checkServerStatus();
-    $('#check_server_status_link').click(function(e) {
+    $('#check_server_status_link').click(function (e) {
         checkServerStatus();
         return false;
     });
@@ -96,17 +96,13 @@ $(document).ready(function () {
             authWindow = window.open(authorizationUrl, 'authorizationExample');
             authWindow.opener.focus();
             $(window).bind('message', function (e) {
-                'use strict';
-
                 var dataPieces = e.originalEvent.data.split('=');
                 authWindow.close();
                 if (dataPieces[0] === 'access_token') {
                     accessToken.val(dataPieces[1].split('&')[0]);
-                    gitJs.authenticateUser(function(data, text, jqXhr) {
+                    gitJs.authenticateUser(function (data, text, jqXhr) {
                         showUserInfo(data);
                     }, accessToken.val());
-                } else {
-
                 }
             });
         }
