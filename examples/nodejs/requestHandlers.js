@@ -4,7 +4,7 @@ var http = require('https'),
 
 function getToken(request, response) {
     'use strict';
-
+    console.log('routing request for getToken');
     var parsedUrl = url.parse(request.url, true),
         options,
         req,
@@ -30,24 +30,29 @@ function getToken(request, response) {
             'Content-Length': requestParams.length
         }
     };
-    req = http.request(options, function (response) {
-        response.setEncoding('utf8');
+    req = http.request(options, function (reqResponse) {
         var str = '';
-        response.on('data', function (chunk) {
+        reqResponse.setEncoding('utf8');
+        reqResponse.on('data', function (chunk) {
             str += chunk;
+            console.log(str);
         });
 
-        response.on('end', function () {
-            console.log(str);
+        reqResponse.on('end', function () {
+            response.writeHead(200, {"Content-Type": "text/html"});
+            response.write('<script>');
+
+            response.write('window.opener.postMessage("' + str + '", "*");');
+            response.write('console.log(window.opener);');
+            response.write('</script>');
+            response.end();
         });
     });
 
     req.on('error', function (e) {
-        console.log(e);
         console.log('problem with request: ' + e.message);
     });
     req.write(requestParams);
-
     req.end();
 }
 
@@ -55,10 +60,10 @@ function checkStatus(request, response) {
     'use strict';
     var parsedUrl = url.parse(request.url, true),
         callback = parsedUrl.query.callback;
-    response.writeHead(200, {
-        'content-type': 'text/javascript'
-    });
-    response.end(callback + '()');
+
+    response.writeHead(200, {"Content-Type": "text/plain"});
+    response.write(callback + '()');
+    response.end();
 }
 
 exports.getToken = getToken;

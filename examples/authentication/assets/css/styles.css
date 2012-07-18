@@ -11,3 +11,6 @@
 #user_info p > span {
     font-weight: normal;
 }
+.clear {
+    clear: both;
+}

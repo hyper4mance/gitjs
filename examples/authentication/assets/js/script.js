@@ -1,4 +1,5 @@
 /*global $: true, document: true, GitJs: true, window: true */
+
 function showUserInfo(userObject) {
     'use strict';
     var userInfo = $('#user_info'),
@@ -10,7 +11,7 @@ function showUserInfo(userObject) {
         userData = userObject.data;
 
     userInfo.show('explode', 500);
-    warningLabel.toolTip('yo mama');
+    warningLabel.tooltip({title: 'Keep this information secure. Do not share it with anyone!'});
     avatar.attr('src', 'http://www.gravatar.com/avatar/' + userData.gravatar_id + '?s=260');
     email.html(userData.email);
     blog.html(userData.blog);
@@ -20,9 +21,9 @@ function showUserInfo(userObject) {
 function generateScopeString() {
     'use strict';
     var scopes = [];
-    $('input[type=checkbox,name=scope').each(function (index, element) {
+    $("input[name='scope[]']").each(function (index, element) {
         var me = $(this);
-        if ($(element).checked() === true) {
+        if ($(element).is(':checked') === true) {
             scopes.push(me.val());
         }
     });
@@ -81,14 +82,34 @@ $(document).ready(function () {
         return false;
     });
     $('form').bind('submit', function () {
-        var accessToken = $('#access_token').val(),
+        var accessToken = $('#access_token'),
             clientId = '9161914a06ffaf898a7e',
             appSecret = '22689d87189698f4bbf05c90585b9ff7bd8602e7',
             gitJs = new GitJs({clientId: clientId}),
-            scope = generateScopeString();
+            scope = generateScopeString(),
+            authWindow,
+            authorizationUrl = gitJs.generateAuthorizationLink(clientId, {
+                scope: generateScopeString()
+            });
 
-        checkServerStatus();
+        if (accessToken.val().length === 0) {
+            authWindow = window.open(authorizationUrl, 'authorizationExample');
+            authWindow.opener.focus();
+            $(window).bind('message', function (e) {
+                'use strict';
 
+                var dataPieces = e.originalEvent.data.split('=');
+                authWindow.close();
+                if (dataPieces[0] === 'access_token') {
+                    accessToken.val(dataPieces[1].split('&')[0]);
+                    gitJs.authenticateUser(function(data, text, jqXhr) {
+                        showUserInfo(data);
+                    }, accessToken.val());
+                } else {
+
+                }
+            });
+        }
         return false;
     });
 });

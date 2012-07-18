@@ -7,7 +7,6 @@ function start(route, handle) {
             pathname = requestUrl.pathname;
 
         route(handle, pathname, request, response);
-        response.end();
     }
 
     http.createServer(onRequest).listen(8888);
