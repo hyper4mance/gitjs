@@ -81,6 +81,11 @@ $(document).ready(function () {
         checkServerStatus();
         return false;
     });
+
+    $("input[name='scope[]']").click(function () {
+        $('#access_token').val('');
+    });
+
     $('form').bind('submit', function () {
         var accessToken = $('#access_token'),
             clientId = '9161914a06ffaf898a7e',
@@ -105,6 +110,10 @@ $(document).ready(function () {
                     }, accessToken.val());
                 }
             });
+        } else {
+            gitJs.authenticateUser(function (data, text, jqXhr) {
+                showUserInfo(data);
+            }, accessToken.val());
         }
         return false;
     });
