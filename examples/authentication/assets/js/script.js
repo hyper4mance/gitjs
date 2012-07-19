@@ -7,11 +7,9 @@ function showUserInfo(userObject) {
         avatar = userInfo.find('#avatar'),
         email = userInfo.find('#email'),
         blog = userInfo.find('#blog'),
-        warningLabel = $('span.label-important'),
         userData = userObject.data;
 
     userInfo.show('explode', 500);
-    warningLabel.tooltip({title: 'Keep this information secure. Do not share it with anyone!'});
     avatar.attr('src', 'http://www.gravatar.com/avatar/' + userData.gravatar_id + '?s=260');
     email.html(userData.email);
     blog.html(userData.blog);
@@ -74,8 +72,8 @@ function checkServerStatus(callback) {
 $(document).ready(function () {
     'use strict';
     $('div.alert-success').hide();
-    $('div.alert-error').hide();
-
+    $('div.alert-important').hide();
+    $('span.label-warning').tooltip({title: 'Keep this information secure. Do not share it with anyone!'});
     checkServerStatus();
     $('#check_server_status_link').click(function (e) {
         checkServerStatus();
