@@ -303,19 +303,52 @@ var GitJs = (function ($) {
         },
 
         /**
-         * Get information regarding a specific issue.
+         * Get issues for a specific repo.
          *
          * @public
          * @param {Function(data, textStatus, jqXhr)} callback
          * @param {object} callback.data A JSON object containing the response from the server.
          * @param {object} callback.text The text response from the server.
          * @param {object} callback.jqXhr jqXR object ({@link http://api.jquery.com/types/#jqXHR})
-         * @param {string} user The user that the issue should belong to.
+         * @param {string} user The user that the repo should belong to.
          * @param {string} repo The repo that the issue should belong to.
-         * @param {issueNumber} issueNumber The issue number.
+         * @param {object} [options]
+         * @param {string|integer} [options.milestone] The milestone the issue should belong to.
+         *   Possible values are "none" (no milestone), "*" (any milestone), or an integer
+         *   specifying the specific milestone the issues should belong to.
+         * @param {string} [options.state] The state the issues should be in. Possible
+         *   values are "open" or "closed".
+         * @param {string} [options.assignee] The user that the issues should be assigned to.
+         *   possible values are "none" (not assigned), "*" (assigned to anyone), or the name
+         *   of the specific user the issue should be assigned to.
+         * @param {string} [options.mentioned] The user that the issues should metion.
+         * @param {string} [options.labels] A list of comma separated Label names. Example: bug,ui,@high.
+         * @param {string} [options.sort] What field to sort the data by.
+         * @param {string} [options.direction] What direction to sort the data by (ascending or descending).
+         * @param {string} [options.since] Only show issues since the given timestamp.
          */
-        getIssue: function (callback, user, repo, issueNumber) {
-            this.generateApiRequest('/repos/' + user + '/' + repo + '/issues/' + issueNumber).send(callback);
+        getIssuesByRepo: function (callback, user, repo, options) {
+            var apiCommand = '/repos/' + user + '/' + repo + '/issues',
+                milestone = options.milestone,
+                state = options.state,
+                assignee = options.assignee,
+                mentioned = options.mentioned,
+                labels = options.labels,
+                sort = options.sort,
+                direction = options.direction,
+                since = options.since,
+                data = {
+                    milestone: milestone,
+                    state: options.state,
+                    assignee: assignee,
+                    mention: mentioned,
+                    labels: labels,
+                    sort: sort,
+                    direction: direction,
+                    since: since
+                };
+
+            this.generateApiRequest(apiCommand, data).send(callback);
         },
 
         /**

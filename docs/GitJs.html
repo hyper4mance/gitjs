@@ -388,7 +388,7 @@
     
     
     <div class="description">
-        Authenticates a user with the Github API using an access token.
+        Authenticates a user with the Github API.
     </div>
     
     
@@ -407,6 +407,8 @@
 		
 		<th>Type</th>
 		
+		
+		<th>Argument</th>
 		
 		
 		
@@ -430,6 +432,12 @@
                     
             </td>
             
+            
+                <td class="attributes">
+                
+                    
+                
+                </td>
             
             
             
@@ -526,6 +534,36 @@
         </tr>
 	
 	
+	
+        <tr>
+            
+                <td class="name"><code>accessToken</code></td>
+            
+            
+            <td class="type">
+            
+                        string
+                        
+                    
+            </td>
+            
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+                    
+                
+                </td>
+            
+            
+            
+            
+            <td class="description last">The access token to log the user in with. If not provided, the access token
+  from the constructor's config object will be used.</td>
+        </tr>
+	
+	
 	</tbody>
 </table>
     
@@ -550,7 +588,7 @@
 	
 	
 	<dt class="tag-source">Source:</dt>
-	<dd class="tag-source"><ul class="dummy"><li>GitJs.js, line 166</li></ul></dd>
+	<dd class="tag-source"><ul class="dummy"><li>GitJs.js, line 167</li></ul></dd>
 	
     
     
@@ -785,7 +823,7 @@
 	
 	
 	<dt class="tag-source">Source:</dt>
-	<dd class="tag-source"><ul class="dummy"><li>GitJs.js, line 387</li></ul></dd>
+	<dd class="tag-source"><ul class="dummy"><li>GitJs.js, line 423</li></ul></dd>
 	
     
     
@@ -1211,7 +1249,7 @@
 	
 	
 	<dt class="tag-source">Source:</dt>
-	<dd class="tag-source"><ul class="dummy"><li>GitJs.js, line 335</li></ul></dd>
+	<dd class="tag-source"><ul class="dummy"><li>GitJs.js, line 371</li></ul></dd>
 	
     
     
@@ -1535,7 +1573,7 @@
 	
 	
 	<dt class="tag-source">Source:</dt>
-	<dd class="tag-source"><ul class="dummy"><li>GitJs.js, line 556</li></ul></dd>
+	<dd class="tag-source"><ul class="dummy"><li>GitJs.js, line 592</li></ul></dd>
 	
     
     
@@ -1838,7 +1876,7 @@
 	
 	
 	<dt class="tag-source">Source:</dt>
-	<dd class="tag-source"><ul class="dummy"><li>GitJs.js, line 433</li></ul></dd>
+	<dd class="tag-source"><ul class="dummy"><li>GitJs.js, line 469</li></ul></dd>
 	
     
     
@@ -2094,7 +2132,7 @@
 	
 	
 	<dt class="tag-source">Source:</dt>
-	<dd class="tag-source"><ul class="dummy"><li>GitJs.js, line 579</li></ul></dd>
+	<dd class="tag-source"><ul class="dummy"><li>GitJs.js, line 615</li></ul></dd>
 	
     
     
@@ -2551,7 +2589,7 @@
 	
 	
 	<dt class="tag-source">Source:</dt>
-	<dd class="tag-source"><ul class="dummy"><li>GitJs.js, line 141</li></ul></dd>
+	<dd class="tag-source"><ul class="dummy"><li>GitJs.js, line 140</li></ul></dd>
 	
     
     
@@ -2843,7 +2881,7 @@
 	
 	
 	<dt class="tag-source">Source:</dt>
-	<dd class="tag-source"><ul class="dummy"><li>GitJs.js, line 185</li></ul></dd>
+	<dd class="tag-source"><ul class="dummy"><li>GitJs.js, line 188</li></ul></dd>
 	
     
     
@@ -2866,7 +2904,7 @@
         
             
 <dt>
-    <h4 class="name" id="getIssue"><span class="type-signature"></span>getIssue</h4>
+    <h4 class="name" id="getIssuesByRepo"><span class="type-signature"></span>getIssuesByRepo</h4>
     
     
 </dt>
@@ -2874,7 +2912,7 @@
     
     
     <div class="description">
-        Get information regarding a specific issue.
+        Get issues for a specific repo.
     </div>
     
     
@@ -2893,6 +2931,8 @@
 		
 		<th>Type</th>
 		
+		
+		<th>Argument</th>
 		
 		
 		
@@ -2916,6 +2956,12 @@
                     
             </td>
             
+            
+                <td class="attributes">
+                
+                    
+                
+                </td>
             
             
             
@@ -3026,10 +3072,16 @@
             </td>
             
             
+                <td class="attributes">
+                
+                    
+                
+                </td>
             
             
             
-            <td class="description last">The user that the issue should belong to.</td>
+            
+            <td class="description last">The user that the repo should belong to.</td>
         </tr>
 	
 	
@@ -3047,6 +3099,12 @@
             </td>
             
             
+                <td class="attributes">
+                
+                    
+                
+                </td>
+            
             
             
             
@@ -3057,21 +3115,296 @@
 	
         <tr>
             
-                <td class="name"><code>issueNumber</code></td>
+                <td class="name"><code>options</code></td>
             
             
             <td class="type">
             
-                        issueNumber
+                        object
                         
                     
             </td>
             
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+                    
+                
+                </td>
             
             
             
-            <td class="description last">The issue number.</td>
+            
+            <td class="description last">
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		<th>Argument</th>
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>milestone</code></td>
+            
+            
+            <td class="type">
+            
+                        string
+                         | 
+                    
+                        integer
+                        
+                    
+            </td>
+            
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+                    
+                
+                </td>
+            
+            
+            
+            
+            <td class="description last">The milestone the issue should belong to.
+  Possible values are "none" (no milestone), "*" (any milestone), or an integer
+  specifying the specific milestone the issues should belong to.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>state</code></td>
+            
+            
+            <td class="type">
+            
+                        string
+                        
+                    
+            </td>
+            
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+                    
+                
+                </td>
+            
+            
+            
+            
+            <td class="description last">The state the issues should be in. Possible
+  values are "open" or "closed".</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>assignee</code></td>
+            
+            
+            <td class="type">
+            
+                        string
+                        
+                    
+            </td>
+            
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+                    
+                
+                </td>
+            
+            
+            
+            
+            <td class="description last">The user that the issues should be assigned to.
+  possible values are "none" (not assigned), "*" (assigned to anyone), or the name
+  of the specific user the issue should be assigned to.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>mentioned</code></td>
+            
+            
+            <td class="type">
+            
+                        string
+                        
+                    
+            </td>
+            
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+                    
+                
+                </td>
+            
+            
+            
+            
+            <td class="description last">The user that the issues should metion.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>labels</code></td>
+            
+            
+            <td class="type">
+            
+                        string
+                        
+                    
+            </td>
+            
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+                    
+                
+                </td>
+            
+            
+            
+            
+            <td class="description last">A list of comma separated Label names. Example: bug,ui,@high.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>sort</code></td>
+            
+            
+            <td class="type">
+            
+                        string
+                        
+                    
+            </td>
+            
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+                    
+                
+                </td>
+            
+            
+            
+            
+            <td class="description last">What field to sort the data by.</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>direction</code></td>
+            
+            
+            <td class="type">
+            
+                        string
+                        
+                    
+            </td>
+            
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+                    
+                
+                </td>
+            
+            
+            
+            
+            <td class="description last">What direction to sort the data by (ascending or descending).</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>since</code></td>
+            
+            
+            <td class="type">
+            
+                        string
+                        
+                    
+            </td>
+            
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+                    
+                
+                </td>
+            
+            
+            
+            
+            <td class="description last">Only show issues since the given timestamp.</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+            </td>
         </tr>
 	
 	
@@ -3099,7 +3432,7 @@
 	
 	
 	<dt class="tag-source">Source:</dt>
-	<dd class="tag-source"><ul class="dummy"><li>GitJs.js, line 314</li></ul></dd>
+	<dd class="tag-source"><ul class="dummy"><li>GitJs.js, line 330</li></ul></dd>
 	
     
     
@@ -3530,7 +3863,7 @@
 	
 	
 	<dt class="tag-source">Source:</dt>
-	<dd class="tag-source"><ul class="dummy"><li>GitJs.js, line 281</li></ul></dd>
+	<dd class="tag-source"><ul class="dummy"><li>GitJs.js, line 284</li></ul></dd>
 	
     
     
@@ -3879,7 +4212,7 @@
 	
 	
 	<dt class="tag-source">Source:</dt>
-	<dd class="tag-source"><ul class="dummy"><li>GitJs.js, line 249</li></ul></dd>
+	<dd class="tag-source"><ul class="dummy"><li>GitJs.js, line 252</li></ul></dd>
 	
     
     
@@ -4252,7 +4585,7 @@
 	
 	
 	<dt class="tag-source">Source:</dt>
-	<dd class="tag-source"><ul class="dummy"><li>GitJs.js, line 215</li></ul></dd>
+	<dd class="tag-source"><ul class="dummy"><li>GitJs.js, line 218</li></ul></dd>
 	
     
     
@@ -4508,7 +4841,7 @@
 	
 	
 	<dt class="tag-source">Source:</dt>
-	<dd class="tag-source"><ul class="dummy"><li>GitJs.js, line 456</li></ul></dd>
+	<dd class="tag-source"><ul class="dummy"><li>GitJs.js, line 492</li></ul></dd>
 	
     
     
@@ -4843,7 +5176,7 @@
 	
 	
 	<dt class="tag-source">Source:</dt>
-	<dd class="tag-source"><ul class="dummy"><li>GitJs.js, line 408</li></ul></dd>
+	<dd class="tag-source"><ul class="dummy"><li>GitJs.js, line 444</li></ul></dd>
 	
     
     
@@ -4885,7 +5218,7 @@
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3</a> on Sat Jul 14 2012 13:45:13 GMT-0500 (CDT)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3</a> on Wed Jul 18 2012 21:53:43 GMT-0500 (CDT)
 </footer>
 
 <script> sh_highlightDocument(); </script>
