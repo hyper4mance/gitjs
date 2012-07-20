@@ -359,7 +359,7 @@ var GitJs = (function ($) {
          * @param {object} callback.data A JSON object containing the response from the server.
          * @param {object} callback.text The text response from the server.
          * @param {object} callback.jqXhr jqXR object ({@link http://api.jquery.com/types/#jqXHR})
-         * @param {string} user The user that the issue should belong to.
+         * @param {string} user The user that the repo should belong to.
          * @param {string} repo The repo that the issue should belong to.
          * @param {object} options
          * @param {string} options.title The title of the issue.
@@ -436,7 +436,7 @@ var GitJs = (function ($) {
          * @param {object} callback.data A JSON object containing the response from the server.
          * @param {object} callback.text The text response from the server.
          * @param {object} callback.jqXhr jqXR object ({@link http://api.jquery.com/types/#jqXHR})
-         * @param {string} user The user the tree data should belong to.
+         * @param {string} user The user the repo should belong to.
          * @param {string} repo The repo the tree data should belong to.
          * @param {string} sha The sha the tree data should belong to.
          * @param {boolean} [recursive=false] If true, the tree's data will be retrieved recursively.
@@ -460,7 +460,7 @@ var GitJs = (function ($) {
          * @param {object} callback.data A JSON object containing the response from the server.
          * @param {object} callback.text The text response from the server.
          * @param {object} callback.jqXhr jqXR object ({@link http://api.jquery.com/types/#jqXHR})
-         * @param {string} user The user the tree belongs to.
+         * @param {string} user The user the repo belongs to.
          * @param {string} repo The repo the tree belongs to.
          * @param {object} options
          * @param {object[]} options.trees Array of Hash objects (of path, mode, type and sha) specifying a tree structure.
@@ -485,7 +485,7 @@ var GitJs = (function ($) {
          * @param {object} callback.data A JSON object containing the response from the server.
          * @param {object} callback.text The text response from the server.
          * @param {object} callback.jqXhr jqXR object ({@link http://api.jquery.com/types/#jqXHR})
-         * @param {string} user The user the tag belongs to.
+         * @param {string} user The user the repo belongs to.
          * @param {string} repo The repo the tag belongs to.
          * @param {string} sha The SHA of the tag.
          */
@@ -582,7 +582,7 @@ var GitJs = (function ($) {
          * @param {object} callback.data A JSON object containing the response from the server.
          * @param {object} callback.text The text response from the server.
          * @param {object} callback.jqXhr jqXR object ({@link http://api.jquery.com/types/#jqXHR})
-         * @param {string} user The user the reference should belong to
+         * @param {string} user The user the repo should belong to
          * @param {string} repo The repo the reference should belong to
          * @param {object} options
          * @param {string} options.ref The name of the fully qualified reference (ie: refs/heads/master).
@@ -608,7 +608,7 @@ var GitJs = (function ($) {
          * @param {object} callback.data A JSON object containing the response from the server.
          * @param {object} callback.text The text response from the server.
          * @param {object} callback.jqXhr jqXR object ({@link http://api.jquery.com/types/#jqXHR})
-         * @param {string} user The user the reference belongs to.
+         * @param {string} user The user the repo belongs to.
          * @param {string} repo The repo the reference belongs to.
          * @param {string} The reference to delete.
          */
