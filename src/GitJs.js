@@ -107,8 +107,12 @@ var GitJs = (function ($) {
                 me = this;
 
             httpVerb = httpVerb || 'GET';
-            dataType = dataType || 'jsonp';
-            commandMethod = getCommandMethod();
+            dataType = httpVerb !== 'GET' ? 'json' : (dataType || 'jsonp');
+
+            if (this.config.accessToken !== undefined) {
+                apiCommand += '?access_token=' + this.config.accessToken;
+            }
+            commandMethod = getCommandMethod(httpVerb);
 
             if (apiCommand[0] !== '/') {
                 apiCommand = '/' + apiCommand;
@@ -120,7 +124,7 @@ var GitJs = (function ($) {
                 dataType: dataType,
                 httpVerb: httpVerb,
                 send: function (callback) {
-                    commandMethod.call(me, this.url, this.data, callback, dataType);
+                    commandMethod.call(me, this.url, JSON.stringify(this.data), callback, dataType);
                     return apiRequest;
                 }
             };
@@ -284,7 +288,7 @@ var GitJs = (function ($) {
         getIssuesByUser: function (callback, options) {
             options = options || {};
 
-            var apiCommand = '/issues?access_token=' + this.config.accessToken,
+            var apiCommand = '/issues',
                 filter = options.filter,
                 state = options.state,
                 labels = options.labels,
