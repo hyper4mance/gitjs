@@ -10,6 +10,9 @@
             $.get = function () {
                 $.get.called = true;
             };
+            $.post = function () {
+                $.post.called = true;
+            };
             this.gitjs = new G();
         },
         tearDown: function () {
@@ -51,7 +54,7 @@
             assert.isFunction(apiRequest.send);
             assert.equals(httpVerb, apiRequest.httpVerb);
             assert.equals(dataType, apiRequest.dataType);
-            assert($.get.called);
+            assert($.post.called);
         },
         "test slash added to non-slashed commands": function () {
             var apiCommand = 'user/opnsrce/repos',
