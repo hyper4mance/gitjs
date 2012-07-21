@@ -328,6 +328,8 @@ var GitJs = (function ($) {
          * @param {string} [options.since] Only show issues since the given timestamp.
          */
         getIssuesByRepo: function (callback, user, repo, options) {
+            options = options || {};
+
             var apiCommand = '/repos/' + user + '/' + repo + '/issues',
                 milestone = options.milestone,
                 state = options.state,
