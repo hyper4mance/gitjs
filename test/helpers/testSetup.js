@@ -5,12 +5,6 @@ function testSetUp(G) {
 
     this.$get = $.get;
     this.$post = $.post;
-    $.get = function () {
-        $.get.called = true;
-    };
-    $.post = function () {
-        $.post.called = true;
-    };
     this.gitjs = new G();
     this.generateApiRequestOriginal = this.gitjs.generateApiRequest;
     this.gitjs.generateApiRequest = function (apiCommand, data, httpVerb, dataType) {
@@ -20,5 +14,12 @@ function testSetUp(G) {
         };
         me.apiRequest = request;
         return request;
+    };
+
+    $.get = function () {
+        $.get.called = true;
+    };
+    $.post = function () {
+        $.post.called = true;
     };
 }
