@@ -5,23 +5,10 @@
 
     buster.testCase("generateApiRequestTest", {
         setUp: function () {
-            this.$get = $.get;
-            this.$post = $.post;
-            $.get = function () {
-                $.get.called = true;
-            };
-            $.post = function () {
-                $.post.called = true;
-            };
-            this.gitjs = new G();
+            testSetUp.call(this, G);
         },
         tearDown: function () {
-            $.get = this.$get;
-            $.post = this.$post;
-
-            delete this.gitjs;
-            delete this.$get;
-            delete this.$post;
+            testTearDown.call(this, G);
         },
 
         "test generateApiRequest with minimal options": function () {
