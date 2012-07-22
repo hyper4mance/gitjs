@@ -9,6 +9,9 @@ config['GitJs Tests'] = {
     deps: [
         'test/deps/*.js'
     ],
+    testHelpers: [
+        'test/helpers/*.js'
+    ],
     tests: [
         'test/test_constructor.js',
         'test/test_generateApiRequest.js',
