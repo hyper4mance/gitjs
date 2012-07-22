@@ -7,25 +7,10 @@
 
     buster.testCase("getGistComments", {
         setUp: function () {
-            var me = this;
-
-            this.gitjs = new G();
-            this.generateApiRequestOriginal = this.gitjs.generateApiRequest;
-            this.gitjs.generateApiRequest = function (apiCommand, data, httpVerb, dataType) {
-                var request = me.generateApiRequestOriginal.apply(new GitJs(), arguments);
-                request.send = function () {
-                    me.gitjs.sendApiRequestCalled = true;
-                };
-                me.apiRequest = request;
-                return request;
-            };
+            testSetUp.call(this, G);
         },
         tearDown: function () {
-            this.gitjs.generateApiRequest = this.generateApiRequestOriginal;
-
-            delete this.generateApiRequestOriginal;
-            delete this.gitjs;
-            delete this.apiRequest;
+            testTearDown.call(this, G);
         },
 
 
@@ -63,6 +48,6 @@
             assert.equals('jsonp', this.apiRequest.dataType);
             assert.equals('GET', this.apiRequest.httpVerb);
             refute.defined(this.apiRequest.data.commentId);
-        },
+        }
     });
 }(GitJs));
