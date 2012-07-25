@@ -405,6 +405,26 @@ var GitJs = (function ($) {
 
         },
 
+
+        /**
+         * Edit an issue.
+         *
+         * @public
+         * @param {Function(data, textStatus, jqXhr)} callback
+         * @param {object} callback.data A JSON object containing the response from the server.
+         * @param {object} callback.text The text response from the server.
+         * @param {object} callback.jqXhr jqXR object ({@link http://api.jquery.com/types/#jqXHR})
+         * @param {string} user The user that the repo should belong to.
+         * @param {string} repo The repo that the issue should belong to.
+         * @param {integer} issueNumber The number of the issue to edit.
+         * @param {string} options.title The title of the issue.
+         * @param {string} [options.body] The body of the issue.
+         * @param {string} [options.assignee] The Login for the user that this issue should be assigned to.
+         * @param {string} [options.state] The state the issue should be set to ('open' or 'closed')
+         * @param {string} [options.milestone] The milestone to associate this issue with.
+         * @param {string[]} [options.labels] An array of labels to associate with this issue.
+         * @param {object} options
+         */
         editIssue: function (callback, user, repo, issueNumber, options) {
             options = options || {};
 
