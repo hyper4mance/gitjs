@@ -96,7 +96,7 @@ var GitJs = (function ($) {
          * @param {string} [httpVerb=GET] The HTTP verb used to send the request. Defaults to 'GET'.
          * @param {string} [dataType=jsonp] The data type that the Github API will send its response in. Defaults to 'jsonp'
          * @example
-         *     var GitJs = new GitJs(configObject),
+         *     var gitJs = new GitJs(configObject),
          *         requestData = {};
          *
          *     GitJs.generateApiRequest('/user/opnsrce/repos', requestData, 'GET', 'jsonp').send(myCallback);
@@ -140,6 +140,17 @@ var GitJs = (function ($) {
          * @param {object} [options] A CSV string representing what scope the application will request.
          * @param {string} [options.scope] A CSV string representing what scope the application will request.
          * @param {string} [options.redirectUri] The URI the browser should be redirected to once the app is authorized.
+         * @example
+         *     var gitJs = new GitJs(configObject),
+         *         authorizationLink;
+         *
+         *     var authorizationLink = gitJs.generateAuthorizationLink('123345', {
+         *         scope: 'user,public',
+         *         redirectUri: 'http://www.mywebsite.com/requestToken'
+         *     });
+         *
+         *     document.write('&lt;a href = "' + authorizationLink + '"&gt;Authorize My Application&lt;/a&gt;');
+         *
          */
         generateAuthorizationLink: function (clientId, options) {
             options = options || {};
