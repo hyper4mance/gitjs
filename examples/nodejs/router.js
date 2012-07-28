@@ -6,7 +6,7 @@ function route(handle, pathname, request, response) {
     if (typeof handle[pathname] === 'function') {
         handle[pathname](request, response);
     } else {
-        if(pathname != '/favicon.ico') {
+        if (pathname !== '/favicon.ico') {
             try {
                 console.log(pathname);
                 html = fs.readFileSync('./' + pathname, 'ascii');
