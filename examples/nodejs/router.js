@@ -1,18 +1,22 @@
 function route(handle, pathname, request, response) {
     'use strict';
     var fs = require('fs'),
-        html;
+        html,
+        filePath;
 
     if (typeof handle[pathname] === 'function') {
         handle[pathname](request, response);
     } else {
         if (pathname !== '/favicon.ico') {
             try {
-                html = fs.readFileSync('./' + pathname, 'ascii');
+                filePath = './' + pathname;
+                console.log('Loading ' + filePath);
+                html = fs.readFileSync(filePath);
                 response.write(html);
                 response.end();
             } catch (err) {
-                console.log(err);
+                console.log('Unable to load ' + filePath);
+                response.end();
             }
         }
     }
