@@ -8,7 +8,6 @@ function route(handle, pathname, request, response) {
     } else {
         if (pathname !== '/favicon.ico') {
             try {
-                console.log(pathname);
                 html = fs.readFileSync('./' + pathname, 'ascii');
                 response.write(html);
                 response.end();
@@ -17,7 +16,6 @@ function route(handle, pathname, request, response) {
             }
         }
     }
-    response.end();
 }
 
 exports.route = route;
