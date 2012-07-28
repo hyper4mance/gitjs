@@ -124,7 +124,7 @@ var GitJs = (function ($) {
                 dataType: dataType,
                 httpVerb: httpVerb,
                 send: function (callback) {
-                    commandMethod.call(me, this.url, JSON.stringify(this.data), callback, dataType);
+                    commandMethod.call(me, this.url, (httpVerb === 'GET') ? data : JSON.stringify(this.data), callback, dataType);
                     return apiRequest;
                 }
             };
