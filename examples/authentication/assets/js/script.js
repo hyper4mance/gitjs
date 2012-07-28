@@ -2,14 +2,13 @@
 
 (function () {
     'use strict';
-    var userInfo = $('#user_info'),
-        username = userInfo.find('#username'),
-        avatar = userInfo.find('#avatar'),
-        email = userInfo.find('#email'),
-        blog = userInfo.find('#blog');
-
     function showUserInfo(userObject) {
-        var userData = userObject.data;
+        var userData = userObject.data,
+            userInfo = $('#user_info'),
+            username = userInfo.find('#username'),
+            avatar = userInfo.find('#avatar'),
+            email = userInfo.find('#email'),
+            blog = userInfo.find('#blog');
 
         userInfo.show('explode', 500);
         avatar.attr('src', 'http://www.gravatar.com/avatar/' + userData.gravatar_id + '?s=260');
