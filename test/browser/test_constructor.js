@@ -1,7 +1,5 @@
-/*globals buster:true, $:true, GitJs:true*/
 (function (G) {
     'use strict';
-    var assert = buster.assert;
 
     buster.testCase("configDefaultsTest", {
         setUp: function () {

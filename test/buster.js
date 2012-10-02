@@ -7,12 +7,12 @@ config['Browser Tests'] = {
         'src/Gitjs.js'
     ],
     deps: [
-        'test/deps/*.js'
+        'test/browser/deps/*.js'
     ],
     testHelpers: [
-        'test/helpers/*.js'
+        'test/browser/helpers/*.js'
     ],
     tests: [
-        'test/test_*.js'
+        'test/browser/test_*.js'
     ]
 };
