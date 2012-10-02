@@ -1,6 +1,6 @@
 var config = module.exports;
 
-config['GitJs Tests'] = {
+config['Browser Tests'] = {
     rootPath: '../',
     environment: 'browser',
     sources: [
