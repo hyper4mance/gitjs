@@ -395,7 +395,7 @@ var GitJs = (function ($) {
                 milestone = options.milestone,
                 labels = options.labels;
 
-            this.generateApiRequest(apiCommand, {
+            return this.generateApiRequest(apiCommand, {
                 title: title,
                 body: body,
                 assignee: assignee,
