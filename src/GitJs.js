@@ -647,7 +647,7 @@ var GitJs = (function ($) {
          * @param {object} callback.jqXhr jqXR object ({@link http://api.jquery.com/types/#jqXHR})
          * @param {string} user The user the repo belongs to.
          * @param {string} repo The repo the reference belongs to.
-         * @param {string} The reference to delete.
+         * @param {string} reference The reference to delete.
          */
         deleteReference: function (callback, user, repo, reference) {
             var apiCommand = '/repos/' + user + '/' + repo + '/git/refs/' + reference;
