@@ -31,6 +31,9 @@
 
 var GitJs = (function ($) {
     'use strict';
+    var G,
+        createApiRequest,
+        getCommandMethod;
 
     /**
      * Class constructor.
@@ -44,7 +47,7 @@ var GitJs = (function ($) {
      * @param {string} [config.accessToken] The access token of the currently logged in user.
      * @param {baseUrl} [config.baseUrl=https://api.github.com] The base url used to send all commands to the api.
      */
-    var G = function (config) {
+    G = function (config) {
         if (config === undefined) {
             config = {};
         }
