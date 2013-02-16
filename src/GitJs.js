@@ -654,9 +654,12 @@ var GitJs = (function ($) {
          * @param {string} reference The reference to delete.
          */
         deleteReference: function (callback, user, repo, reference) {
-            var apiCommand = '/repos/' + user + '/' + repo + '/git/refs/' + reference;
+            var apiCommand = '/repos/' + user + '/' + repo + '/git/refs/' + reference,
+                apiRequest;
 
-            this.generateApiRequest(apiCommand, {}, 'POST').send(callback);
+            apiRequest = createApiRequest.call(this, apiCommand, {}, 'POST').send(callback);
+
+            return apiRequest;
         }
     };
 
