@@ -582,9 +582,9 @@ var GitJs = (function ($) {
                 content = options.content,
                 encoding = options.encoding || 'UTF-8';
 
-            this.generateApiRequest(apiCommand, {
                 content: content,
                 encoding: encoding
+            apiRequest = createApiRequest.call(this, apiCommand, {
             }, 'POST').send(callback);
         },
 
