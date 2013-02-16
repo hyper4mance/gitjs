@@ -600,25 +600,18 @@ var GitJs = (function ($) {
 
         createCommit: function (callback, user, repo, options) {
             var apiCommand = '/repos/' + user + '/' + repo + '/git/commits',
-                message = options.message,
-                tree = options.tree,
-                parents = options.parents,
-                author = options.author,
-                committer = options.committer,
+                apiRequest,
                 data = {
-                    message: message,
-                    tree: tree,
-                    parents: parents
+                    message: options.message,
+                    tree: options.tree,
+                    author: options.author,
+                    committer: options.committer,
+                    parents: options.parents
                 };
 
-            if (committer !== undefined && typeof committer === 'object') {
-                data.committer = committer;
-            }
-            if (author !== undefined && typeof author === 'object') {
-                data.author = author;
-            }
 
             this.generateApiRequest(apiCommand, data, 'POST').send(callback);
+            return apiRequest;
         },
 
         getReferenceInfo: function (callback, user, repo, options) {
