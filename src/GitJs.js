@@ -468,11 +468,14 @@ var GitJs = (function ($) {
          * @param {string} comment
          */
         createGistComment: function (callback, gistId, comment) {
-            var apiCommand = '/gists' + gistId + '/comments';
+            var apiCommand = '/gists' + gistId + '/comments',
+                apiRequest;
 
-            this.generateApiRequest(apiCommand, {
+            apiRequest = createApiRequest.call(this, apiCommand, {
                 body: comment
             }).send(callback);
+
+            return apiRequest;
         },
 
         /**
