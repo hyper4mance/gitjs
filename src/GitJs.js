@@ -567,9 +567,12 @@ var GitJs = (function ($) {
         },
 
         getBlobInfo: function (callback, user, repo, sha) {
-            var apiCommand = '/repos/' + user + '/' + repo + 'git/blobs/' + sha;
+            var apiCommand = '/repos/' + user + '/' + repo + 'git/blobs/' + sha,
+                apiRequest;
 
-            this.generateApiRequest(apiCommand).send(callback);
+            apiRequest = createApiRequest.call(this, apiCommand).send(callback);
+
+            return apiRequest;
         },
 
         createBlob: function (callback, user, repo, options) {
