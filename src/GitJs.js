@@ -618,6 +618,7 @@ var GitJs = (function ($) {
             options = options || {};
 
             var apiCommand = '/repos/' + user + '/' + repo + '/git/refs/',
+                apiRequest,
                 reference = options.reference,
                 getByTag = options.getByTag || false;
 
@@ -627,7 +628,9 @@ var GitJs = (function ($) {
                 apiCommand += 'tag';
             }
 
-            this.generateApiRequest(apiCommand).send(callback);
+            apiRequest = createApiRequest.call(this, apiCommand).send(callback);
+
+            return apiRequest;
         },
 
         /**
