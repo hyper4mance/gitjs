@@ -209,17 +209,23 @@ var GitJs = (function ($) {
          *
          */
         getGistComments: function (callback, gistId, options) {
-            options = options || {};
+            var apiCommand,
+                commentId,
+                apiRequest;
 
-            var apiCommand = '',
-                commentId = options.commentId;
+            options = options || {};
+            commentId = options.commentId;
 
             if (commentId === undefined || isNaN(commentId) === true) {
                 apiCommand = '/gists/' + gistId + '/comments';
             } else {
                 apiCommand = '/gists/comments/' + options.commentId;
             }
-            this.generateApiRequest(apiCommand).send(callback);
+            apiRequest = createApiRequest.call(this, apiCommand);
+
+            apiRequest.send(callback);
+
+            return apiRequest;
         },
 
         /**
@@ -277,18 +283,21 @@ var GitJs = (function ($) {
          * @param {string} [options.direction] What direction to sort the data by (ascending or descending).
          */
         getReposByOrg: function (callback, organization, options) {
+            var apiRequest,
+                apiCommand = '/orgs/' + organization + '/repos';
+
+
             options = options || {};
 
-            var apiCommand = '/orgs/' + organization + '/repos',
-                type = options.type,
-                sort = options.sort,
-                direction = options.direction;
+            apiRequest = createApiRequest.call(this, apiCommand, {
+                type: options.type,
+                sort: options.sort,
+                direction: options.direction
+            });
 
-            this.generateApiRequest(apiCommand, {
-                type: type,
-                sort: sort,
-                direction: direction
-            }).send(callback);
+            apiRequest.send(callback);
+
+            return apiRequest;
         },
 
         /**
