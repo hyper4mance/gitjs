@@ -590,9 +590,12 @@ var GitJs = (function ($) {
         },
 
         getCommitInfo: function (callback, user, repo, sha) {
-            var apiCommand = '/repos/' + user + '/' + repo + '/commits/' + sha;
+            var apiCommand = '/repos/' + user + '/' + repo + '/commits/' + sha,
+                apiRequest;
 
-            this.generateApiRequest(apiCommand).send(callback);
+            apiRequest = createApiRequest.call(this, apiCommand).send(callback);
+
+            return apiRequest;
         },
 
         createCommit: function (callback, user, repo, options) {
