@@ -492,13 +492,17 @@ var GitJs = (function ($) {
          * @param {boolean} [recursive=false] If true, the tree's data will be retrieved recursively.
          */
         getTree: function (callback, user, repo, sha, recursive) {
+            var apiCommand = '/repos/' + user + '/' + repo + '/' + sha,
+                apiRequest;
 
-            var apiCommand = '/repos/' + user + '/' + repo + '/' + sha;
+            recursive = recursive || false;
 
             if (recursive === true) {
                 apiCommand += '?recursive=1';
             }
-            this.generateApiRequest(apiCommand).send(callback);
+            apiRequest = createApiRequest.call(this, apiCommand).send(callback);
+
+            return apiRequest;
         },
 
         /**
