@@ -185,10 +185,13 @@ var GitJs = (function ($) {
          *   from the constructor's config object will be used.
          */
         authenticateUser: function (callback, accessToken) {
-            accessToken = accessToken || this.config.accessToken;
-            this.generateApiRequest('/user', {
-                access_token: accessToken
-            }).send(callback);
+            var apiRequest = createApiRequest.call(this, '/user', {
+                access_token: accessToken || this.config.accessToken
+            });
+
+            apiRequest.send(callback);
+
+            return apiRequest;
         },
 
         /**
