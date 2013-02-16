@@ -556,16 +556,13 @@ var GitJs = (function ($) {
 
         createTag: function (callback, user, repo, options) {
             var apiCommand = '/repos/' + user + '/' + repo + '/git/tags',
-                tags = options.tags,
-                message = options.message,
-                object = options.object,
-                tagger = options.tagger;
+                apiRequest;
 
-            this.generateApiRequest(apiCommand, {
-                tags: tags,
-                message: message,
-                object: object,
-                tagger: tagger
+            apiRequest = createApiRequest.call(this, apiCommand, {
+                tags: options.tags,
+                message: options.message,
+                object: options.object,
+                tagger: options.tagger
             }).send(callback);
         },
 
