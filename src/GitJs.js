@@ -233,23 +233,27 @@ var GitJs = (function ($) {
          * @param {string} [options.direction] What direction to sort the data by (ascending or descending).
          */
         getReposByUser: function (callback, username, options) {
-            options = options || {};
-
             var apiCommand = '',
-                type = options.type,
-                sort = options.sort,
-                direction = options.direction;
+                apiRequest;
+
+            options = options || {};
 
             if (username !== undefined) {
                 apiCommand = '/users/' + username + '/repos';
             } else {
                 apiCommand = '/user/repos';
             }
-            this.generateApiRequest(apiCommand, {
-                type: type,
-                sort: sort,
-                direction: direction
-            }).send(callback);
+
+            apiRequest = createApiRequest.call(this, apiCommand, {
+                type: options.type,
+                sort: options.sort,
+                direction: options.direction
+
+            });
+
+            apiRequest.send(callback);
+
+            return apiRequest;
         },
 
         /**
