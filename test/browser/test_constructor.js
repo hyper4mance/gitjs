@@ -1,7 +1,7 @@
 (function (G) {
     'use strict';
 
-    buster.testCase('configDefaultsTest', {
+    buster.testCase('constructorTest', {
         setUp: function () {
             this.gitjs = new G();
         },
