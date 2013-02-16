@@ -318,23 +318,22 @@ var GitJs = (function ($) {
          *
          */
         getIssuesByUser: function (callback, options) {
-            options = options || {};
 
             var apiCommand = '/issues',
-                filter = options.filter,
-                labels = options.labels,
-                sort = options.sort,
-                direction = options.direction,
-                since = options.since;
+                apiRequest;
 
-            this.generateApiRequest(apiCommand, {
-                filter: filter,
-                state: state,
-                labels: labels,
-                sort: sort,
-                direction: direction,
-                since: since
+            options = options || {};
+
+            apiRequest = createApiRequest.call(this, apiCommand, {
+                filter: options.filter,
+                state: options.state,
+                labels: options.labels,
+                sort: options.sort,
+                direction: options.direction,
+                since: options.since
             }, 'GET').send(callback);
+
+            return apiRequest;
         },
 
         /**
