@@ -442,21 +442,18 @@ var GitJs = (function ($) {
             options = options || {};
 
             var apiCommand = '/repos/' + user + '/' + repo + 'issues/' + issueNumber,
-                title = options.title,
-                body = options.body,
-                assignee = options.assignee,
-                state = options.state,
-                milestone = options.milestone,
-                labels = options.labels;
+                apiRequest;
 
-            this.generateApiRequest(apiCommand, {
-                title: title,
-                body: body,
-                assignee: assignee,
-                state: state,
-                milestone: milestone,
-                labels: labels
+            apiRequest = createApiRequest.call(this, apiCommand, {
+                title: options.title,
+                body: options.body,
+                assignee: options.assignee,
+                state: options.state,
+                milestone: options.milestone,
+                labels: options.labels
             }, 'POST').send(callback);
+
+            return apiRequest;
         },
 
         /**
