@@ -546,9 +546,12 @@ var GitJs = (function ($) {
          * @param {string} sha The SHA of the tag.
          */
         getTagInfo: function (callback, user, repo, sha) {
-            var apiCommand = '/repos/' + user + '/' + repo + '/git/tags/' + sha;
+            var apiCommand = '/repos/' + user + '/' + repo + '/git/tags/' + sha,
+                apiRequest;
 
-            this.generateApiRequest(apiCommand).send(callback);
+            apiRequest = createApiRequest.call(this, apiCommand).send(callback);
+
+            return apiRequest;
         },
 
         createTag: function (callback, user, repo, options) {
