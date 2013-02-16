@@ -395,7 +395,7 @@ var GitJs = (function ($) {
          * @param {object} options
          * @param {string} options.title The title of the issue.
          * @param {string} [options.body] The body of the issue.
-         * @param {string} [options.assignee] The Login for the user that this issue should be assigned to.
+         * @param {string} [options.assignee] The login for the user that this issue should be assigned to.
          * @param {string} [options.milestone] The milestone to associate this issue with.
          * @param {string[]} [options.labels] An array of labels to associate with this issue.
          */
