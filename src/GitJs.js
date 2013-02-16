@@ -72,7 +72,7 @@ var GitJs = (function ($) {
      * @param {string} httpVerb The HTTP verb that the request will use,
      * @return function
      */
-    function getCommandMethod(httpVerb) {
+    getCommandMethod = function (httpVerb) {
         var method = $.get;
 
         switch (httpVerb) {
