@@ -609,8 +609,8 @@ var GitJs = (function ($) {
                     parents: options.parents
                 };
 
+            apiRequest = createApiRequest.call(this, apiCommand, data, 'POST').send(callback);
 
-            this.generateApiRequest(apiCommand, data, 'POST').send(callback);
             return apiRequest;
         },
 
