@@ -579,13 +579,14 @@ var GitJs = (function ($) {
             options = options || {};
 
             var apiCommand = '/repos/' + user + '/' + repo + '/git/blobs',
-                content = options.content,
-                encoding = options.encoding || 'UTF-8';
+                apiRequest;
 
-                content: content,
-                encoding: encoding
             apiRequest = createApiRequest.call(this, apiCommand, {
+                content: options.content,
+                encoding: options.encoding || 'UTF-8'
             }, 'POST').send(callback);
+
+            return apiRequest;
         },
 
         getCommitInfo: function (callback, user, repo, sha) {
