@@ -86,50 +86,54 @@ var GitJs = (function ($) {
         return method;
     };
 
-        /**
-         * Generates a request to be sent to the Github API.
-         *
-         * @public
-         * @param {string} apiCommand The Github API command (e.g., '/user') can start with a '/' but doesn't have to.
-         * @param {object} [data] An object literal of command parameters to send along with the API request.
-         * @param {string} [httpVerb=GET] The HTTP verb used to send the request. Defaults to 'GET'.
-         * @param {string} [dataType=jsonp] The data type that the Github API will send its response in. Defaults to 'jsonp'
+    /**
+     * Generates a request to be sent to the Github API.
+     *
+     * @private
+     * @scope GitJs
+     * @param {string} apiCommand The Github API command (e.g., '/user') can start with a '/' but doesn't have to.
+     * @param {object} [data] An object literal of command parameters to send along with the API request.
+     * @param {string} [httpVerb=GET] The HTTP verb used to send the request. Defaults to 'GET'.
+     * @param {string} [dataType=jsonp] The data type that the Github API will send its response in. Defaults to 'jsonp'
          * @example
          *     var gitJs = new GitJs(configObject),
          *         requestData = {};
          *
-         *     GitJs.generateApiRequest('/user/opnsrce/repos', requestData, 'GET', 'jsonp').send(myCallback);
-         */
-        generateApiRequest: function (apiCommand, data, httpVerb, dataType) {
-            var commandMethod,
-                apiRequest,
-                me = this;
+         *     GitJs.createApiRequest('/user/opnsrce/repos', requestData, 'GET', 'jsonp').send(myCallback);
+     */
+    createApiRequest = function (apiCommand, data, httpVerb, dataType) {
+        var commandMethod,
+            apiRequest,
+            me = this;
 
-            httpVerb = httpVerb || 'GET';
-            dataType = httpVerb !== 'GET' ? 'json' : (dataType || 'jsonp');
+        httpVerb = httpVerb || 'GET';
+        dataType = httpVerb !== 'GET' ? 'json' : (dataType || 'jsonp');
+        if (me.config.accessToken !== undefined) {
+            apiCommand += '?access_token=' + this.config.accessToken;
+        }
+        commandMethod = getCommandMethod(httpVerb);
 
-            if (this.config.accessToken !== undefined) {
-                apiCommand += '?access_token=' + this.config.accessToken;
-            }
-            commandMethod = getCommandMethod(httpVerb);
+        if (apiCommand[0] !== '/') {
+            apiCommand = '/' + apiCommand;
+        }
 
-            if (apiCommand[0] !== '/') {
-                apiCommand = '/' + apiCommand;
-            }
-
-            apiRequest = {
-                url: 'https://api.github.com' + apiCommand,
-                data: data || {},
-                dataType: dataType,
-                httpVerb: httpVerb,
-                send: function (callback) {
-                    commandMethod.call(me, this.url, (httpVerb === 'GET') ? data : JSON.stringify(this.data), callback, dataType);
-                    return apiRequest;
+        apiRequest = {
+            url: me.baseUrl + apiCommand,
+            data: data || {},
+            dataType: dataType,
+            httpVerb: httpVerb,
+            send: function (callback) {
+                if (typeof callback !== 'function') {
+                    throw new TypeError('EnvatoMarketPlace::apiRequest callback must be a function');
                 }
-            };
+                commandMethod.call(me, me.url, (httpVerb === 'GET') ? data : JSON.stringify(me.data), callback, dataType);
+                return apiRequest;
+            }
+        };
 
-            return apiRequest;
-        },
+        return apiRequest;
+    };
+
     G.prototype = {
         constructor: G,
 
