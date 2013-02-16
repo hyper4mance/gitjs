@@ -638,13 +638,14 @@ var GitJs = (function ($) {
          */
         createReference: function (callback, user, repo, options) {
             var apiCommand = '/repos/' + user + '/' + repo + '/git/refs',
-                ref = options.ref,
-                sha = options.sha;
+                apiRequest;
 
-            this.generateApiRequest(apiCommand, {
-                ref: ref,
-                sha: sha
+            apiRequest = createApiRequest.call(this, apiCommand, {
+                ref: options.ref,
+                sha: options.sha
             }, 'POST').send(callback);
+
+            return apiRequest;
         },
 
         /**
