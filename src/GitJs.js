@@ -521,13 +521,16 @@ var GitJs = (function ($) {
          */
         createTree: function (callback, user, repo, options) {
             var apiCommand = '/repos/' + user + '/' + repo + '/git/trees',
+                apiRequest,
                 baseTree = options.baseTree,
                 trees = options.tree;
 
-            this.generateApiRequest(apiCommand, {
+            apiRequest = createApiRequest.call(this, apiCommand, {
                 baseTree: baseTree,
                 tree: trees
             }).send(callback);
+
+            return apiRequest;
         },
 
         /**
