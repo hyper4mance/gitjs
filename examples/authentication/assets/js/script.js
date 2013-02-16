@@ -8,13 +8,10 @@
             username = userInfo.find('#username'),
             avatar = userInfo.find('#avatar'),
             email = userInfo.find('#email'),
-            blog = userInfo.find('#blog'),
-            avatarUrl = 'http://www.gravatar.com/avatar/' + userData.gravatar_id,
-            largeAvatarParam = '?s=260',
-            smallAvatarParam = '?s=14';
+            blog = userInfo.find('#blog');
 
         userInfo.show('explode', 500);
-        avatar.attr('src', avatarUrl + largeAvatarParam);
+        avatar.attr('src', 'http://www.gravatar.com/avatar/' + userData.gravatar_id + '?s=260');
         email.html(userData.email);
         blog.html(userData.blog);
         username.html(userData.login);
@@ -66,11 +63,6 @@
             success: success,
             error: error
         });
-    }
-
-    function storeUserData(userData, accessToken) {
-        userData.accessToken = accessToken;
-        $.totalStorage('user', userData.data);
     }
 
     $(document).ready(function () {
