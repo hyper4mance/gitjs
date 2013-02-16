@@ -365,26 +365,21 @@ var GitJs = (function ($) {
             options = options || {};
 
             var apiCommand = '/repos/' + user + '/' + repo + '/issues',
-                milestone = options.milestone,
-                state = options.state,
-                assignee = options.assignee,
-                mentioned = options.mentioned,
-                labels = options.labels,
-                sort = options.sort,
-                direction = options.direction,
-                since = options.since,
+                apiRequest,
                 data = {
-                    milestone: milestone,
+                    milestone: options.milestone,
                     state: options.state,
-                    assignee: assignee,
-                    mention: mentioned,
-                    labels: labels,
-                    sort: sort,
-                    direction: direction,
-                    since: since
+                    assignee: options.assignee,
+                    mention: options.mentioned,
+                    labels: options.labels,
+                    sort: options.sort,
+                    direction: options.direction,
+                    since: options.since
                 };
 
-            this.generateApiRequest(apiCommand, data).send(callback);
+            apiRequest = createApiRequest.call(this, apiCommand, data).send(callback);
+
+            return apiRequest;
         },
 
         /**
