@@ -84,10 +84,7 @@ var GitJs = (function ($) {
             break;
         }
         return method;
-    }
-
-    G.prototype = {
-        constructor: G,
+    };
 
         /**
          * Generates a request to be sent to the Github API.
@@ -133,6 +130,8 @@ var GitJs = (function ($) {
 
             return apiRequest;
         },
+    G.prototype = {
+        constructor: G,
 
         /**
          * Generates a link that, when clicked on, will prompt the user to grant the application access to their Github account.
