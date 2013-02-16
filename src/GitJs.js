@@ -66,7 +66,7 @@ var GitJs = (function ($) {
     };
 
     /**
-     * Gets the jQuery method that GitJs#generateApiRequest is going to use to send the ajax request.
+     * Gets the jQuery method that GitJs#createApiRequest is going to use to send the ajax request.
      *
      * @private
      * @scope GitJs
