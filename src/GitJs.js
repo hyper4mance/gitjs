@@ -307,7 +307,6 @@ var GitJs = (function ($) {
 
             var apiCommand = '/issues',
                 filter = options.filter,
-                state = options.state,
                 labels = options.labels,
                 sort = options.sort,
                 direction = options.direction,
@@ -392,23 +391,22 @@ var GitJs = (function ($) {
          * @param {string[]} [options.labels] An array of labels to associate with this issue.
          */
         createIssue: function (callback, user, repo, options) {
+            var apiCommand = '/repos/' + user + '/' + repo + '/issues',
+                apiRequest;
+
             options = options || {};
 
-            var apiCommand = '/repos/' + user + '/' + repo + '/issues',
-                title = options.title,
-                body = options.body,
-                assignee = options.assignee,
-                milestone = options.milestone,
-                labels = options.labels;
+            apiRequest = createApiRequest.call(this, apiCommand, {
+                title: options.title,
+                body: options.body,
+                assignee: options.assignee,
+                milestone: options.milestone,
+                labels: options.labels
+            }, 'POST');
 
-            return this.generateApiRequest(apiCommand, {
-                title: title,
-                body: body,
-                assignee: assignee,
-                milestone: milestone,
-                labels: labels
-            }, 'POST').send(callback);
+            apiRequest.send(callback);
 
+            return apiRequest;
         },
 
 
