@@ -18,4 +18,17 @@
         ok(this.gitJs.constructor, G);
     });
 
+    test('test that an empty config gets the default config options set', function() {
+        var gitJs = new G(),
+            expectedConfig;
+
+        expectedConfig = {
+            accessToken: undefined,
+            clientId: undefined,
+            inheriting: false,
+            baseUrl: 'https://api.github.com'
+        };
+
+        deepEqual(gitJs.config, expectedConfig);
+    });
 }(GitJs));
