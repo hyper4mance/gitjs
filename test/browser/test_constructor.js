@@ -31,4 +31,20 @@
 
         deepEqual(gitJs.config, expectedConfig);
     });
+
+    test('test that the default config values get overridden when a config object is passed in', function() {
+        var gitJs,
+            expectedConfig;
+
+        expectedConfig = {
+            accessToken: '12345',
+            clientId: 'test',
+            inheriting: true,
+            baseUrl: 'https://api.github.com/v2'
+        };
+
+        gitJs = new G(expectedConfig);
+
+        deepEqual(gitJs.config, expectedConfig);
+    })
 }(GitJs));
