@@ -1,18 +1,21 @@
 (function (G) {
     'use strict';
 
-    buster.testCase('constructorTest', {
-        setUp: function () {
-            this.gitjs = new G();
+    module('Constructor Tests', {
+        setup: function () {
+            this.gitJs = new G();
         },
-        tearDown: function () {
+        teardown: function () {
             delete this.gitJs;
-        },
-        'test that this.gitjs is instance of GitJS': function () {
-            assert(this.gitjs instanceof G);
-        },
-        'test that this.gitjs constructor is GitJs': function () {
-            assert.equals(this.gitjs.constructor, G);
         }
     });
+
+    test('test that this.gitjs is instance of GitJS', function () {
+            ok(this.gitJs instanceof G);
+    });
+
+    test('test that this.gitjs constructor is GitJs', function () {
+        ok(this.gitJs.constructor, G);
+    });
+
 }(GitJs));
