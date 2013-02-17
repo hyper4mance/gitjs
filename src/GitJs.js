@@ -119,7 +119,7 @@ var GitJs = (function ($) {
             httpVerb: httpVerb,
             send: function (callback) {
                 if (typeof callback !== 'function') {
-                    throw new TypeError('EnvatoMarketPlace::apiRequest callback must be a function');
+                    throw new TypeError('GitJs::apiRequest callback must be a function');
                 }
                 commandMethod.call(me, me.url, (httpVerb === 'GET') ? data : JSON.stringify(me.data), callback, dataType);
                 return apiRequest;
