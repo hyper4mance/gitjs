@@ -103,8 +103,8 @@ var GitJs = (function ($) {
 
         httpVerb = httpVerb || 'GET';
         dataType = httpVerb !== 'GET' ? 'json' : (dataType || 'jsonp');
-        if (me.config.accessToken !== undefined) {
-            apiCommand += '?access_token=' + this.config.accessToken;
+        if (me.config.accessToken !== undefined && (data === undefined || data.access_token === undefined)) {
+            apiCommand += '?access_token=' + me.config.accessToken;
         }
         commandMethod = getCommandMethod(httpVerb);
 
