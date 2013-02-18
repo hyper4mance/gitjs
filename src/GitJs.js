@@ -113,10 +113,6 @@ var GitJs = (function ($) {
         }
 
         apiRequest = {
-            url: me.baseUrl + apiCommand,
-            data: data || {},
-            dataType: dataType,
-            httpVerb: httpVerb,
             send: function (callback) {
                 if (typeof callback !== 'function') {
                     throw new TypeError('GitJs::apiRequest callback must be a function');
