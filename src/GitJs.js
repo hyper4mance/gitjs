@@ -117,7 +117,7 @@ var GitJs = (function ($) {
                 if (typeof callback !== 'function') {
                     throw new TypeError('GitJs::apiRequest callback must be a function');
                 }
-                commandMethod.call(me, me.url, (httpVerb === 'GET') ? data : JSON.stringify(me.data), callback, dataType);
+                commandMethod.call(me, me.config.baseUrl + apiCommand, (httpVerb === 'GET') ? data : JSON.stringify(me.data), callback, dataType);
                 return apiRequest;
             }
         };
