@@ -2,52 +2,61 @@
 
 (function (G) {
     'use strict';
-    var assert = buster.assert,
-        refute = buster.refute;
 
-    buster.testCase("getGistComments", {
-        setUp: function () {
-            testSetUp.call(this, G);
+    module('getGistComments Tests', {
+        setup: function () {
+            var serverResponse = [{
+                'id': 1,
+                'url': 'https://api.github.com/gists/fd2f141e9fa727538e79/comments/',
+                'body': 'Just commenting for the sake of commenting',
+                'user': {
+                    'login': 'octocat',
+                    'id': 1,
+                    'avatar_url': 'https://github.com/images/error/octocat_happy.gif',
+                    'gravatar_id': 'somehexcode',
+                    'url': 'https://api.github.com/users/octocat'
+                },
+                'created_at': '2011-04-18T23:23:56Z'
+            }];
+
+            this.gistId = 'fd2f141e9fa727538e79';
+            this.gitJs = new G();
+            this.server = sinon.fakeServer.create();
+
+            this.server.respondWith('GET', /https:\/\/api.github.com\/gists\/.+\/comments/, [200, {
+                'Content-Type': 'application/json'
+            }, JSON.stringify(serverResponse)]);
+
+            this.server.respondWith('GET', /https:\/\/api.github.com\/gists\/.+\/comments\/\d+/, [200, {
+                'Content-Type': 'application/json'
+            }, JSON.stringify(serverResponse)]);
         },
-        tearDown: function () {
-            testTearDown.call(this, G);
-        },
+        teardown: function () {
+            this.server.restore();
 
-
-        "test getGistComments method with minimal options": function () {
-            var gistId = 500;
-
-            this.gitjs.getGistComments(function () {}, gistId);
-            assert.isObject(this.apiRequest);
-            assert(this.gitjs.sendApiRequestCalled);
-            assert.equals('https://api.github.com/gists/' + gistId + '/comments', this.apiRequest.url);
-            assert.equals('jsonp', this.apiRequest.dataType);
-            assert.equals('GET', this.apiRequest.httpVerb);
-            refute.defined(this.apiRequest.data.commentId);
-        },
-
-        "test getGistComments with all commentId": function() {
-            var commentId = 1234;
-
-            this.gitjs.getGistComments(function () {}, undefined, {commentId: commentId});
-            assert.isObject(this.apiRequest);
-            assert(this.gitjs.sendApiRequestCalled);
-            assert.equals('https://api.github.com/gists/comments/' + commentId, this.apiRequest.url);
-            assert.equals('jsonp', this.apiRequest.dataType);
-            assert.equals('GET', this.apiRequest.httpVerb);
-            refute.defined(this.apiRequest.data.commentId);
-        },
-
-        "test getGistComments method with invalid comment ID": function () {
-            var gistId = 500,
-                commentId = 'badValue';
-            this.gitjs.getGistComments(function () {}, gistId, {commentId: commentId});
-            assert.isObject(this.apiRequest);
-            assert(this.gitjs.sendApiRequestCalled);
-            assert.equals('https://api.github.com/gists/' + gistId + '/comments', this.apiRequest.url);
-            assert.equals('jsonp', this.apiRequest.dataType);
-            assert.equals('GET', this.apiRequest.httpVerb);
-            refute.defined(this.apiRequest.data.commentId);
+            delete this.gistId;
+            delete this.gitJs;
+            delete this.server;
         }
+    });
+
+    test('test callback is called when getting all comments', function () {
+        var callback = this.spy();
+
+        this.gitJs.getGistComments(callback, this.gistId);
+        this.server.respond();
+        ok(callback.called);
+    });
+
+    test('test callback is called when getting a single comment', function () {
+        var callback = this.spy();
+
+        this.gitJs.getGistComments(callback, this.gistId, {
+            commentId: 1
+        });
+
+        console.log(this.server.requests[0]);
+        this.server.respond();
+        ok(callback.called);
     });
 }(GitJs));
