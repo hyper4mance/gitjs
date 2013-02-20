@@ -94,7 +94,7 @@ var GitJs = (function ($) {
      * @param {string} apiCommand The Github API command (e.g., '/user') can start with a '/' but doesn't have to.
      * @param {object} [data] An object literal of command parameters to send along with the API request.
      * @param {string} [httpVerb=GET] The HTTP verb used to send the request. Defaults to 'GET'.
-     * @param {string} [dataType=jsonp] The data type that the Github API will send its response in. Defaults to 'jsonp'
+     * @param {string} [dataType] The data type that the Github API will send its response in. Defaults to 'jsonp'
      */
     createApiRequest = function (apiCommand, data, httpVerb, dataType) {
         var commandMethod,
@@ -102,7 +102,7 @@ var GitJs = (function ($) {
             me = this;
 
         httpVerb = httpVerb || 'GET';
-        dataType = httpVerb !== 'GET' ? 'json' : (dataType || 'jsonp');
+        dataType = dataType || 'JSON';
         if (me.config.accessToken !== undefined && (data === undefined || data.access_token === undefined)) {
             apiCommand += '?access_token=' + me.config.accessToken;
         }
