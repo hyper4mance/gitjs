@@ -58,4 +58,16 @@
         this.server.respond();
         ok(callback.called);
     });
+
+    test('test that invalid comment Ids get ignored', function () {
+        var callback = this.spy();
+
+        this.gitJs.getGistComments(callback, this.gistId, {
+            commentId: 'badValue'
+        });
+
+        this.server.respond();
+
+        equal(this.server.requests[0].url, 'https://api.github.com/gists/' + this.gistId + '/comments');
+    });
 }(GitJs));
