@@ -55,7 +55,6 @@
             commentId: 1
         });
 
-        console.log(this.server.requests[0]);
         this.server.respond();
         ok(callback.called);
     });
