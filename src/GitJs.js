@@ -251,7 +251,6 @@ var GitJs = (function ($) {
                 type: options.type,
                 sort: options.sort,
                 direction: options.direction
-
             });
 
             apiRequest.send(callback);
